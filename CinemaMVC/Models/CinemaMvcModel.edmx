@@ -1,0 +1,566 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="CinemaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Filme">
+          <Key>
+            <PropertyRef Name="FilmeID" />
+          </Key>
+          <Property Name="FilmeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Titulo" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Descricao" Type="nvarchar" MaxLength="200" />
+          <Property Name="Duracao" Type="time" Precision="0" Nullable="false" />
+          <Property Name="ImagemID" Type="int" />
+        </EntityType>
+        <EntityType Name="ImagemFilme">
+          <Key>
+            <PropertyRef Name="ImagemID" />
+          </Key>
+          <Property Name="ImagemID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Imagem" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Sala">
+          <Key>
+            <PropertyRef Name="SalaID" />
+          </Key>
+          <Property Name="SalaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nome" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="QtdAssentos" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SalaAudioAnimacao">
+          <Key>
+            <PropertyRef Name="SalaAudioAnimacaoID" />
+          </Key>
+          <Property Name="SalaAudioAnimacaoID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SalaID" Type="int" Nullable="false" />
+          <Property Name="TipoAudioID" Type="int" Nullable="false" />
+          <Property Name="TipoAnimacaoID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Sessao">
+          <Key>
+            <PropertyRef Name="SessaoID" />
+          </Key>
+          <Property Name="SessaoID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Data" Type="date" Nullable="false" />
+          <Property Name="HorarioInicio" Type="time" Precision="0" Nullable="false" />
+          <Property Name="HorarioFim" Type="time" Precision="0" Nullable="false" />
+          <Property Name="ValorIngresso" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="SalaAudioAnimacaoID" Type="int" Nullable="false" />
+          <Property Name="FilmeID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TipoAnimacao">
+          <Key>
+            <PropertyRef Name="TipoAnimacaoID" />
+          </Key>
+          <Property Name="TipoAnimacaoID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descricao" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TipoAudio">
+          <Key>
+            <PropertyRef Name="TipoAudioID" />
+          </Key>
+          <Property Name="TipoAudioID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descricao" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Cinema.dbo.vwSala' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vwSala">
+          <Key>
+            <PropertyRef Name="SalaAudioAnimacaoID" />
+            <PropertyRef Name="SalaNome" />
+          </Key>
+          <Property Name="SalaAudioAnimacaoID" Type="int" Nullable="false" />
+          <Property Name="SalaNome" Type="nvarchar" MaxLength="165" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Cinema.dbo.vwSessao' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vwSessao">
+          <Key>
+            <PropertyRef Name="SessaoID" />
+            <PropertyRef Name="Data" />
+            <PropertyRef Name="SalaID" />
+            <PropertyRef Name="Sala" />
+            <PropertyRef Name="ValorIngresso" />
+            <PropertyRef Name="FilmeID" />
+            <PropertyRef Name="NomeFilme" />
+            <PropertyRef Name="TipoAnimacaoID" />
+            <PropertyRef Name="TipoAudioID" />
+          </Key>
+          <Property Name="SessaoID" Type="int" Nullable="false" />
+          <Property Name="Data" Type="date" Nullable="false" />
+          <Property Name="SalaID" Type="int" Nullable="false" />
+          <Property Name="Sala" Type="nvarchar" MaxLength="165" Nullable="false" />
+          <Property Name="HorarioInicio" Type="nvarchar" MaxLength="4000" />
+          <Property Name="HorarioFim" Type="nvarchar" MaxLength="4000" />
+          <Property Name="ValorIngresso" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="FilmeID" Type="int" Nullable="false" />
+          <Property Name="NomeFilme" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="TipoAnimacaoID" Type="int" Nullable="false" />
+          <Property Name="TipoAudioID" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Audio_SalaAudioAnimacao">
+          <End Role="TipoAudio" Type="Self.TipoAudio" Multiplicity="1" />
+          <End Role="SalaAudioAnimacao" Type="Self.SalaAudioAnimacao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoAudio">
+              <PropertyRef Name="TipoAudioID" />
+            </Principal>
+            <Dependent Role="SalaAudioAnimacao">
+              <PropertyRef Name="TipoAudioID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Filme_ImagemFilme">
+          <End Role="ImagemFilme" Type="Self.ImagemFilme" Multiplicity="0..1" />
+          <End Role="Filme" Type="Self.Filme" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ImagemFilme">
+              <PropertyRef Name="ImagemID" />
+            </Principal>
+            <Dependent Role="Filme">
+              <PropertyRef Name="ImagemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sala_SalaAudioAnimacao">
+          <End Role="Sala" Type="Self.Sala" Multiplicity="1" />
+          <End Role="SalaAudioAnimacao" Type="Self.SalaAudioAnimacao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sala">
+              <PropertyRef Name="SalaID" />
+            </Principal>
+            <Dependent Role="SalaAudioAnimacao">
+              <PropertyRef Name="SalaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SalaAudioAnimacao">
+          <End Role="SalaAudioAnimacao" Type="Self.SalaAudioAnimacao" Multiplicity="1" />
+          <End Role="Sessao" Type="Self.Sessao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SalaAudioAnimacao">
+              <PropertyRef Name="SalaAudioAnimacaoID" />
+            </Principal>
+            <Dependent Role="Sessao">
+              <PropertyRef Name="SalaAudioAnimacaoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sessao_Filme">
+          <End Role="Filme" Type="Self.Filme" Multiplicity="1" />
+          <End Role="Sessao" Type="Self.Sessao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Filme">
+              <PropertyRef Name="FilmeID" />
+            </Principal>
+            <Dependent Role="Sessao">
+              <PropertyRef Name="FilmeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TipoAnimacao_SalaAudioAnimacao">
+          <End Role="TipoAnimacao" Type="Self.TipoAnimacao" Multiplicity="1" />
+          <End Role="SalaAudioAnimacao" Type="Self.SalaAudioAnimacao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoAnimacao">
+              <PropertyRef Name="TipoAnimacaoID" />
+            </Principal>
+            <Dependent Role="SalaAudioAnimacao">
+              <PropertyRef Name="TipoAnimacaoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CinemaModelStoreContainer">
+          <EntitySet Name="Filme" EntityType="Self.Filme" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ImagemFilme" EntityType="Self.ImagemFilme" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sala" EntityType="Self.Sala" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SalaAudioAnimacao" EntityType="Self.SalaAudioAnimacao" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sessao" EntityType="Self.Sessao" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TipoAnimacao" EntityType="Self.TipoAnimacao" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TipoAudio" EntityType="Self.TipoAudio" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="vwSala" EntityType="Self.vwSala" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vwSala].[SalaAudioAnimacaoID] AS [SalaAudioAnimacaoID], 
+    [vwSala].[SalaNome] AS [SalaNome]
+    FROM [dbo].[vwSala] AS [vwSala]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vwSessao" EntityType="Self.vwSessao" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vwSessao].[SessaoID] AS [SessaoID], 
+    [vwSessao].[Data] AS [Data], 
+    [vwSessao].[SalaID] AS [SalaID], 
+    [vwSessao].[Sala] AS [Sala], 
+    [vwSessao].[HorarioInicio] AS [HorarioInicio], 
+    [vwSessao].[HorarioFim] AS [HorarioFim], 
+    [vwSessao].[ValorIngresso] AS [ValorIngresso], 
+    [vwSessao].[FilmeID] AS [FilmeID], 
+    [vwSessao].[NomeFilme] AS [NomeFilme], 
+    [vwSessao].[TipoAnimacaoID] AS [TipoAnimacaoID], 
+    [vwSessao].[TipoAudioID] AS [TipoAudioID]
+    FROM [dbo].[vwSessao] AS [vwSessao]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Audio_SalaAudioAnimacao" Association="Self.FK_Audio_SalaAudioAnimacao">
+            <End Role="TipoAudio" EntitySet="TipoAudio" />
+            <End Role="SalaAudioAnimacao" EntitySet="SalaAudioAnimacao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Filme_ImagemFilme" Association="Self.FK_Filme_ImagemFilme">
+            <End Role="ImagemFilme" EntitySet="ImagemFilme" />
+            <End Role="Filme" EntitySet="Filme" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sala_SalaAudioAnimacao" Association="Self.FK_Sala_SalaAudioAnimacao">
+            <End Role="Sala" EntitySet="Sala" />
+            <End Role="SalaAudioAnimacao" EntitySet="SalaAudioAnimacao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SalaAudioAnimacao" Association="Self.FK_SalaAudioAnimacao">
+            <End Role="SalaAudioAnimacao" EntitySet="SalaAudioAnimacao" />
+            <End Role="Sessao" EntitySet="Sessao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sessao_Filme" Association="Self.FK_Sessao_Filme">
+            <End Role="Filme" EntitySet="Filme" />
+            <End Role="Sessao" EntitySet="Sessao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TipoAnimacao_SalaAudioAnimacao" Association="Self.FK_TipoAnimacao_SalaAudioAnimacao">
+            <End Role="TipoAnimacao" EntitySet="TipoAnimacao" />
+            <End Role="SalaAudioAnimacao" EntitySet="SalaAudioAnimacao" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CinemaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="TipoAnimacao">
+          <Key>
+            <PropertyRef Name="TipoAnimacaoID" />
+          </Key>
+          <Property Name="TipoAnimacaoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descricao" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="SalaAudioAnimacao" Relationship="CinemaModel.FK_TipoAnimacao_SalaAudioAnimacao" FromRole="TipoAnimacao" ToRole="SalaAudioAnimacao" />
+        </EntityType>
+        <EntityType Name="TipoAudio">
+          <Key>
+            <PropertyRef Name="TipoAudioID" />
+          </Key>
+          <Property Name="TipoAudioID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descricao" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="SalaAudioAnimacao" Relationship="CinemaModel.FK_Audio_SalaAudioAnimacao" FromRole="TipoAudio" ToRole="SalaAudioAnimacao" />
+        </EntityType>
+        <EntityContainer Name="CinemaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="TipoAnimacao" EntityType="Self.TipoAnimacao" />
+          <EntitySet Name="TipoAudio" EntityType="Self.TipoAudio" />
+          <EntitySet Name="ImagemFilme" EntityType="CinemaModel.ImagemFilme" />
+          <EntitySet Name="Filme" EntityType="CinemaModel.Filme" />
+          <EntitySet Name="Sala" EntityType="CinemaModel.Sala" />
+          <EntitySet Name="SalaAudioAnimacao" EntityType="CinemaModel.SalaAudioAnimacao" />
+          <AssociationSet Name="FK_Filme_ImagemFilme" Association="CinemaModel.FK_Filme_ImagemFilme">
+            <End Role="ImagemFilme" EntitySet="ImagemFilme" />
+            <End Role="Filme" EntitySet="Filme" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sala_SalaAudioAnimacao" Association="CinemaModel.FK_Sala_SalaAudioAnimacao">
+            <End Role="Sala" EntitySet="Sala" />
+            <End Role="SalaAudioAnimacao" EntitySet="SalaAudioAnimacao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Audio_SalaAudioAnimacao" Association="CinemaModel.FK_Audio_SalaAudioAnimacao">
+            <End Role="TipoAudio" EntitySet="TipoAudio" />
+            <End Role="SalaAudioAnimacao" EntitySet="SalaAudioAnimacao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TipoAnimacao_SalaAudioAnimacao" Association="CinemaModel.FK_TipoAnimacao_SalaAudioAnimacao">
+            <End Role="TipoAnimacao" EntitySet="TipoAnimacao" />
+            <End Role="SalaAudioAnimacao" EntitySet="SalaAudioAnimacao" />
+          </AssociationSet>
+          <EntitySet Name="vwSala" EntityType="CinemaModel.vwSala" />
+          <EntitySet Name="Sessao" EntityType="CinemaModel.Sessao" />
+          <AssociationSet Name="FK_Sessao_Filme" Association="CinemaModel.FK_Sessao_Filme">
+            <End Role="Filme" EntitySet="Filme" />
+            <End Role="Sessao" EntitySet="Sessao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SalaAudioAnimacao" Association="CinemaModel.FK_SalaAudioAnimacao">
+            <End Role="SalaAudioAnimacao" EntitySet="SalaAudioAnimacao" />
+            <End Role="Sessao" EntitySet="Sessao" />
+          </AssociationSet>
+          <EntitySet Name="vwSessao" EntityType="CinemaModel.vwSessao" />
+          </EntityContainer>
+        <EntityType Name="ImagemFilme">
+          <Key>
+            <PropertyRef Name="ImagemID" />
+          </Key>
+          <Property Name="ImagemID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Imagem" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="Filme" Relationship="CinemaModel.FK_Filme_ImagemFilme" FromRole="ImagemFilme" ToRole="Filme" />
+        </EntityType>
+        <EntityType Name="Filme">
+          <Key>
+            <PropertyRef Name="FilmeID" />
+          </Key>
+          <Property Name="FilmeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Titulo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Descricao" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Duracao" Type="Time" Nullable="false" Precision="0" />
+          <Property Name="ImagemID" Type="Int32" />
+          <NavigationProperty Name="ImagemFilme" Relationship="CinemaModel.FK_Filme_ImagemFilme" FromRole="Filme" ToRole="ImagemFilme" />
+          <NavigationProperty Name="Sessao" Relationship="CinemaModel.FK_Sessao_Filme" FromRole="Filme" ToRole="Sessao" />
+        </EntityType>
+        <EntityType Name="Sala">
+          <Key>
+            <PropertyRef Name="SalaID" />
+          </Key>
+          <Property Name="SalaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="QtdAssentos" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="SalaAudioAnimacao" Relationship="CinemaModel.FK_Sala_SalaAudioAnimacao" FromRole="Sala" ToRole="SalaAudioAnimacao" />
+        </EntityType>
+        <EntityType Name="SalaAudioAnimacao">
+          <Key>
+            <PropertyRef Name="SalaAudioAnimacaoID" />
+          </Key>
+          <Property Name="SalaAudioAnimacaoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SalaID" Type="Int32" Nullable="false" />
+          <Property Name="TipoAudioID" Type="Int32" Nullable="false" />
+          <Property Name="TipoAnimacaoID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Sala" Relationship="CinemaModel.FK_Sala_SalaAudioAnimacao" FromRole="SalaAudioAnimacao" ToRole="Sala" />
+          <NavigationProperty Name="TipoAudio" Relationship="CinemaModel.FK_Audio_SalaAudioAnimacao" FromRole="SalaAudioAnimacao" ToRole="TipoAudio" />
+          <NavigationProperty Name="TipoAnimacao" Relationship="CinemaModel.FK_TipoAnimacao_SalaAudioAnimacao" FromRole="SalaAudioAnimacao" ToRole="TipoAnimacao" />
+          <NavigationProperty Name="Sessao" Relationship="CinemaModel.FK_SalaAudioAnimacao" FromRole="SalaAudioAnimacao" ToRole="Sessao" />
+        </EntityType>
+        <Association Name="FK_Filme_ImagemFilme">
+          <End Type="CinemaModel.ImagemFilme" Role="ImagemFilme" Multiplicity="0..1" />
+          <End Type="CinemaModel.Filme" Role="Filme" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ImagemFilme">
+              <PropertyRef Name="ImagemID" />
+            </Principal>
+            <Dependent Role="Filme">
+              <PropertyRef Name="ImagemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sala_SalaAudioAnimacao">
+          <End Type="CinemaModel.Sala" Role="Sala" Multiplicity="1" />
+          <End Type="CinemaModel.SalaAudioAnimacao" Role="SalaAudioAnimacao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sala">
+              <PropertyRef Name="SalaID" />
+            </Principal>
+            <Dependent Role="SalaAudioAnimacao">
+              <PropertyRef Name="SalaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Audio_SalaAudioAnimacao">
+          <End Type="CinemaModel.TipoAudio" Role="TipoAudio" Multiplicity="1" />
+          <End Type="CinemaModel.SalaAudioAnimacao" Role="SalaAudioAnimacao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoAudio">
+              <PropertyRef Name="TipoAudioID" />
+            </Principal>
+            <Dependent Role="SalaAudioAnimacao">
+              <PropertyRef Name="TipoAudioID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TipoAnimacao_SalaAudioAnimacao">
+          <End Type="CinemaModel.TipoAnimacao" Role="TipoAnimacao" Multiplicity="1" />
+          <End Type="CinemaModel.SalaAudioAnimacao" Role="SalaAudioAnimacao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoAnimacao">
+              <PropertyRef Name="TipoAnimacaoID" />
+            </Principal>
+            <Dependent Role="SalaAudioAnimacao">
+              <PropertyRef Name="TipoAnimacaoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="vwSala">
+          <Key>
+            <PropertyRef Name="SalaAudioAnimacaoID" />
+            <PropertyRef Name="SalaNome" />
+          </Key>
+          <Property Name="SalaAudioAnimacaoID" Type="Int32" Nullable="false" />
+          <Property Name="SalaNome" Type="String" Nullable="false" MaxLength="165" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Sessao">
+          <Key>
+            <PropertyRef Name="SessaoID" />
+          </Key>
+          <Property Name="SessaoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Data" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="HorarioInicio" Type="Time" Nullable="false" Precision="0" />
+          <Property Name="HorarioFim" Type="Time" Nullable="false" Precision="0" />
+          <Property Name="ValorIngresso" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="SalaAudioAnimacaoID" Type="Int32" Nullable="false" />
+          <Property Name="FilmeID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Filme" Relationship="CinemaModel.FK_Sessao_Filme" FromRole="Sessao" ToRole="Filme" />
+          <NavigationProperty Name="SalaAudioAnimacao" Relationship="CinemaModel.FK_SalaAudioAnimacao" FromRole="Sessao" ToRole="SalaAudioAnimacao" />
+        </EntityType>
+        <Association Name="FK_Sessao_Filme">
+          <End Type="CinemaModel.Filme" Role="Filme" Multiplicity="1" />
+          <End Type="CinemaModel.Sessao" Role="Sessao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Filme">
+              <PropertyRef Name="FilmeID" />
+            </Principal>
+            <Dependent Role="Sessao">
+              <PropertyRef Name="FilmeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SalaAudioAnimacao">
+          <End Type="CinemaModel.SalaAudioAnimacao" Role="SalaAudioAnimacao" Multiplicity="1" />
+          <End Type="CinemaModel.Sessao" Role="Sessao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SalaAudioAnimacao">
+              <PropertyRef Name="SalaAudioAnimacaoID" />
+            </Principal>
+            <Dependent Role="Sessao">
+              <PropertyRef Name="SalaAudioAnimacaoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="vwSessao">
+          <Key>
+            <PropertyRef Name="SessaoID" />
+            <PropertyRef Name="Data" />
+            <PropertyRef Name="SalaID" />
+            <PropertyRef Name="Sala" />
+            <PropertyRef Name="ValorIngresso" />
+            <PropertyRef Name="FilmeID" />
+            <PropertyRef Name="NomeFilme" />
+            <PropertyRef Name="TipoAnimacaoID" />
+            <PropertyRef Name="TipoAudioID" />
+          </Key>
+          <Property Name="SessaoID" Type="Int32" Nullable="false" />
+          <Property Name="Data" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="SalaID" Type="Int32" Nullable="false" />
+          <Property Name="Sala" Type="String" Nullable="false" MaxLength="165" FixedLength="false" Unicode="true" />
+          <Property Name="HorarioInicio" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="HorarioFim" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="ValorIngresso" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="FilmeID" Type="Int32" Nullable="false" />
+          <Property Name="NomeFilme" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TipoAnimacaoID" Type="Int32" Nullable="false" />
+          <Property Name="TipoAudioID" Type="Int32" Nullable="false" />
+        </EntityType>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CinemaModelStoreContainer" CdmEntityContainer="CinemaEntities">
+          <EntitySetMapping Name="TipoAnimacao">
+            <EntityTypeMapping TypeName="CinemaModel.TipoAnimacao">
+              <MappingFragment StoreEntitySet="TipoAnimacao">
+                <ScalarProperty Name="TipoAnimacaoID" ColumnName="TipoAnimacaoID" />
+                <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TipoAudio">
+            <EntityTypeMapping TypeName="CinemaModel.TipoAudio">
+              <MappingFragment StoreEntitySet="TipoAudio">
+                <ScalarProperty Name="TipoAudioID" ColumnName="TipoAudioID" />
+                <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ImagemFilme">
+            <EntityTypeMapping TypeName="CinemaModel.ImagemFilme">
+              <MappingFragment StoreEntitySet="ImagemFilme">
+                <ScalarProperty Name="Imagem" ColumnName="Imagem" />
+                <ScalarProperty Name="ImagemID" ColumnName="ImagemID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Filme">
+            <EntityTypeMapping TypeName="CinemaModel.Filme">
+              <MappingFragment StoreEntitySet="Filme">
+                <ScalarProperty Name="ImagemID" ColumnName="ImagemID" />
+                <ScalarProperty Name="Duracao" ColumnName="Duracao" />
+                <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+                <ScalarProperty Name="Titulo" ColumnName="Titulo" />
+                <ScalarProperty Name="FilmeID" ColumnName="FilmeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sala">
+            <EntityTypeMapping TypeName="CinemaModel.Sala">
+              <MappingFragment StoreEntitySet="Sala">
+                <ScalarProperty Name="QtdAssentos" ColumnName="QtdAssentos" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="SalaID" ColumnName="SalaID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SalaAudioAnimacao">
+            <EntityTypeMapping TypeName="CinemaModel.SalaAudioAnimacao">
+              <MappingFragment StoreEntitySet="SalaAudioAnimacao">
+                <ScalarProperty Name="TipoAnimacaoID" ColumnName="TipoAnimacaoID" />
+                <ScalarProperty Name="TipoAudioID" ColumnName="TipoAudioID" />
+                <ScalarProperty Name="SalaID" ColumnName="SalaID" />
+                <ScalarProperty Name="SalaAudioAnimacaoID" ColumnName="SalaAudioAnimacaoID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vwSala">
+            <EntityTypeMapping TypeName="CinemaModel.vwSala">
+              <MappingFragment StoreEntitySet="vwSala">
+                <ScalarProperty Name="SalaNome" ColumnName="SalaNome" />
+                <ScalarProperty Name="SalaAudioAnimacaoID" ColumnName="SalaAudioAnimacaoID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sessao">
+            <EntityTypeMapping TypeName="CinemaModel.Sessao">
+              <MappingFragment StoreEntitySet="Sessao">
+                <ScalarProperty Name="FilmeID" ColumnName="FilmeID" />
+                <ScalarProperty Name="SalaAudioAnimacaoID" ColumnName="SalaAudioAnimacaoID" />
+                <ScalarProperty Name="ValorIngresso" ColumnName="ValorIngresso" />
+                <ScalarProperty Name="HorarioFim" ColumnName="HorarioFim" />
+                <ScalarProperty Name="HorarioInicio" ColumnName="HorarioInicio" />
+                <ScalarProperty Name="Data" ColumnName="Data" />
+                <ScalarProperty Name="SessaoID" ColumnName="SessaoID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vwSessao">
+            <EntityTypeMapping TypeName="CinemaModel.vwSessao">
+              <MappingFragment StoreEntitySet="vwSessao">
+                <ScalarProperty Name="TipoAudioID" ColumnName="TipoAudioID" />
+                <ScalarProperty Name="TipoAnimacaoID" ColumnName="TipoAnimacaoID" />
+                <ScalarProperty Name="NomeFilme" ColumnName="NomeFilme" />
+                <ScalarProperty Name="FilmeID" ColumnName="FilmeID" />
+                <ScalarProperty Name="ValorIngresso" ColumnName="ValorIngresso" />
+                <ScalarProperty Name="HorarioFim" ColumnName="HorarioFim" />
+                <ScalarProperty Name="HorarioInicio" ColumnName="HorarioInicio" />
+                <ScalarProperty Name="Sala" ColumnName="Sala" />
+                <ScalarProperty Name="SalaID" ColumnName="SalaID" />
+                <ScalarProperty Name="Data" ColumnName="Data" />
+                <ScalarProperty Name="SessaoID" ColumnName="SessaoID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

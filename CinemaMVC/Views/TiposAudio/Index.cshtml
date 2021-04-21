@@ -1,0 +1,38 @@
+﻿@model IEnumerable<CinemaMVC.Models.TipoAudio>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Descricao)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Descricao)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.TipoAudioID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.TipoAudioID }) 
+
+            @if (item.SalaAudioAnimacao == null || item.SalaAudioAnimacao.Count() == 0)
+            {
+                <span>|</span>@Html.ActionLink("Delete", "Delete", new { id = item.TipoAudioID })
+            }
+
+        </td>
+    </tr>
+}
+
+</table>

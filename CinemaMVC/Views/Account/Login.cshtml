@@ -1,0 +1,86 @@
+﻿@using CinemaMVC.Models
+@model LoginViewModel
+@{
+    ViewBag.Title = "Log in";
+}
+
+
+    <div class="container">
+        <div class="child">
+            <section id="loginForm">
+                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = Url.Action("Index","Filmes") }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    if (ViewBag.Aviso != null)
+                    {
+                        <span class="badge bg-info">@ViewBag.Aviso</span>
+                        <br /><br />
+                    }
+                    <p>Email</p>
+
+                    <div class="form-group">
+                        @*@Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })*@
+                        <div class="col-lg-12">
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <p>Password</p>
+                    <div class="form-group">
+                        @*@Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })*@
+                        <div class="col-md-12">
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <div class="checkbox">
+                                @Html.CheckBoxFor(m => m.RememberMe)
+                                @Html.LabelFor(m => m.RememberMe)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-offset-2 col-md-12">
+                        <input type="submit" value="Logar" class="btn btn-info" />
+                    </div>
+                    <br /><br />
+
+                    <br />
+
+                    <p>
+                        @Html.ActionLink("Criar novo usuário", "Register")
+                    </p>
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+
+                    @*<p>
+                @Html.ActionLink("Criar novo usuário", "Register")
+            </p>*@
+                    @* Enable this once you have account confirmation enabled for password reset functionality
+            <p>
+                @Html.ActionLink("Forgot your password?", "ForgotPassword")
+            </p>*@
+                }
+            </section>
+
+        </div>
+    </div>
+
+
+
+
+    @*<div class="col-md-4">
+            <section id="socialLoginForm">
+                @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+            </section>
+        </div>*@
+
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }

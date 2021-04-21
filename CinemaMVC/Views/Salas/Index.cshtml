@@ -1,0 +1,60 @@
+﻿@model IEnumerable<CinemaMVC.Models.Sala>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.QtdAssentos)
+        </th>       
+        <th>
+            Sessões
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model)
+{
+    var possuiSessaoVinculada = CinemaMVC.Helpers.SessaoHelper.HasSessaoVinculada(item.SalaID);  
+
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.QtdAssentos)
+        </td>       
+        <td>
+            @if (possuiSessaoVinculada)
+            {
+                foreach (var item2 in CinemaMVC.Helpers.SessaoHelper.GetSessoesBySalaID(item.SalaID))
+                {
+                    <span>@item2</span>
+                    <br />
+                }
+            }
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.SalaID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.SalaID })
+
+            @if (!possuiSessaoVinculada)
+            {
+                <span>|</span> @Html.ActionLink("Delete", "Delete", new { id = item.SalaID })
+            }
+
+        </td>
+    </tr>
+}
+
+</table>

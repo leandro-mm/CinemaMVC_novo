@@ -1,0 +1,155 @@
+﻿@model CinemaMVC.Models.SalaEditViewModel
+
+@{
+    ViewBag.Title = "Edit";
+    var opcao2PossuiSessao = CinemaMVC.Helpers.SessaoHelper.HasSessaoVinculada(Model.SalaID, Model.TipoAudioID2, Model.TipoAnimacaoID2);
+    var opcao3PossuiSessao = CinemaMVC.Helpers.SessaoHelper.HasSessaoVinculada(Model.SalaID, Model.TipoAudioID3, Model.TipoAnimacaoID3);
+}
+
+<h2>Edit</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+<div class="form-horizontal">
+    <h4>Sala</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.SalaID)
+    @Html.HiddenFor(model => model.SalaAudioAnimacaoID1)
+    @Html.HiddenFor(model => model.SalaAudioAnimacaoID2)
+    @Html.HiddenFor(model => model.SalaAudioAnimacaoID3)
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control", maxlength = 50 } })
+            @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.QtdAssentos, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.QtdAssentos, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = "1" } })
+            @Html.ValidationMessageFor(model => model.QtdAssentos, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.TipoAudioID1, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.TipoAudioID1, Model.TipoAudioID1selectList, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.TipoAudioID1, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.TipoAnimacaoID1, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.TipoAnimacaoID1, Model.TipoAnimacaoID1selectList, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.TipoAnimacaoID1, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+    <hr />
+
+    @if (opcao2PossuiSessao)
+    {
+        //--Não mostra a opção "Selecione" para não dar erro de relacionamento com a sessão
+        <div class="form-group">
+            @Html.LabelFor(model => model.TipoAudioID2, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.TipoAudioID2, Model.TipoAudioID2selectList, htmlAttributes: new { @class = "form-control" })
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TipoAnimacaoID2, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.TipoAnimacaoID2, Model.TipoAnimacaoID2selectList, htmlAttributes: new { @class = "form-control" })
+
+            </div>
+        </div>
+    }
+    else
+    {
+        //--Mostra a opção "Selecione" pois não possui sessão vinculada e vai pode "excluir" o tipo de aúdio/animação
+        <div class="form-group">
+            @Html.LabelFor(model => model.TipoAudioID2, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.TipoAudioID2, Model.TipoAudioID2selectList, "Selecione...", htmlAttributes: new { @class = "form-control" })
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TipoAnimacaoID2, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.TipoAnimacaoID2, Model.TipoAnimacaoID2selectList, "Selecione...", htmlAttributes: new { @class = "form-control" })
+
+            </div>
+        </div>
+    }
+
+
+    <hr />
+
+    @if (opcao3PossuiSessao)
+    {
+        //--Não mostra a opção "Selecione" para não dar erro de relacionamento com a sessão
+        <div class="form-group">
+            @Html.LabelFor(model => model.TipoAudioID3, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.TipoAudioID3, Model.TipoAudioID3selectList, htmlAttributes: new { @class = "form-control" })
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TipoAnimacaoID3, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.TipoAnimacaoID3, Model.TipoAnimacaoID3selectList, htmlAttributes: new { @class = "form-control" })
+
+            </div>
+        </div>
+    }
+    else
+    {
+        //--Mostra a opção "Selecione" pois não possui sessão vinculada e vai pode "excluir" o tipo de aúdio/animação
+        <div class="form-group">
+            @Html.LabelFor(model => model.TipoAudioID3, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.TipoAudioID3, Model.TipoAudioID3selectList, "Selecione...", htmlAttributes: new { @class = "form-control" })
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TipoAnimacaoID3, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.TipoAnimacaoID3, Model.TipoAnimacaoID3selectList, "Selecione...", htmlAttributes: new { @class = "form-control" })
+
+            </div>
+        </div>
+    }
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Save" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

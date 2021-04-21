@@ -1,0 +1,75 @@
+﻿@model CinemaMVC.Models.Sessao
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Sessao</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Data)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Data)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HorarioInicio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HorarioInicio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HorarioFim)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HorarioFim)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ValorIngresso)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ValorIngresso)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Filme.Titulo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Filme.Titulo)
+        </dd>
+
+
+        <dt>
+            Animação
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SalaAudioAnimacao.TipoAnimacao.Descricao)
+        </dd>
+
+        <dt>
+            Áudio
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SalaAudioAnimacao.TipoAudio.Descricao)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.SessaoID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

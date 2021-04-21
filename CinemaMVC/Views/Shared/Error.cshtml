@@ -1,0 +1,13 @@
+﻿@model System.Web.Mvc.HandleErrorInfo
+
+@{
+    ViewBag.Title = "Página de Erro";
+    var msg = ViewBag.Mensagem != null ? ViewBag.Mensagem : string.Empty;
+}
+
+<h4 class="text-danger">Página de Erro</h4>
+<h4 class="text-danger">Ocorreu um erro enquanto sua requisição estava sendo processada</h4>
+<div class="w3-panel w3-warning">    
+    <p><strong>Descrição:</strong> @msg</p>
+    <br />
+</div>
