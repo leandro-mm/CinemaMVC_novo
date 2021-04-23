@@ -21,7 +21,7 @@ namespace CinemaMVC.Controllers
         {
             var ViewModel = new FilmeIndexViewModel
             {
-                FilmePerPage = 5,
+                FilmePerPage = 3,
                 Filmes = db.Filme.OrderBy(d => d.Titulo),
                 FilmeSelectLIst = new SelectList(db.Filme, "FilmeID", "Titulo"),               
                 CurrentPage = page

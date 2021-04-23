@@ -6,30 +6,41 @@
 
     
 
-    <div class="header">
-        @if (Request.IsAuthenticated)
+<div class="header">
+    @if (Request.IsAuthenticated)
+    {
+        @*<ul class="pager">
+            <li>
+                <a href="@Url.Action("Index","Filmes")">
+                    <img alt="image" style="width:89%" src="~/Images/popcorn.png" />
+                </a>
+            </li>
+            <li>
+                @Html.ActionLink("Olá " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @style = "color:white;" })
+            </li>
+        </ul>*@
+
+        <ul class="nav navbar-nav navbar-right" style="margin-right:5%;">
+            <li>
+                @Html.ActionLink("Olá " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @style = "color:white;" })
+            </li>
+            <li><a style="color:white;" href="javascript:document.getElementById('logoutForm').submit()">Sair</a></li>
+        </ul>
+    }
+    @*<nav class="navbar navbar-static-top" role="navigation"></nav>*@
+
+
+
+    @*else
         {
-            <ul class="nav navbar-nav navbar-right" style="margin-right:5%;">
-                <li>
-                    @Html.ActionLink("Olá " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @style = "color:white;" })
-                </li>
-                <li><a style="color:white;" href="javascript:document.getElementById('logoutForm').submit()">Sair</a></li>
+            <ul class="nav navbar-nav navbar-right">
+                <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+                <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
             </ul>
-        }
-        @*<nav class="navbar navbar-static-top" role="navigation"></nav>*@
+        }*@
 
 
-
-        @*else
-            {
-                <ul class="nav navbar-nav navbar-right">
-                    <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-                    <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
-                </ul>
-            }*@
-
-
-    </div>
+</div>
 
 
 

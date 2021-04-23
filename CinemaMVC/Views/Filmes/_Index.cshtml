@@ -8,53 +8,39 @@
 {
 
     <table class="table">
-        <tr>
-            <th>
-                Titulo
-            </th>
-            <th>
-                Descricao
-            </th>
-            <th>
-                Duracao
-            </th>
-            <th>
-                Imagem
-            </th>
-            <th></th>
-        </tr>
 
         @foreach (var item in Model.Filmes)
         {
+
             string base64String = item.ImagemFilme != null ? Convert.ToBase64String(item.ImagemFilme.Imagem) : String.Empty;
 
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Titulo)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Descricao)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Duracao)
-                </td>
-                <td>
-                    @if (!string.IsNullOrWhiteSpace(base64String))
-                    {
-                        <img src="@String.Format("data:image/png;base64,{0}", base64String)" alt="@item.Titulo" style="width: 20%" />
-                    }
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.FilmeID }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.FilmeID })
+        <tr>
+            <td style="width:70%">
+                <div class="media">
+                    <a class="pull-left" href="#">
+                        @*<img class="media-object" data-src="holder.js/64x64" alt="64x64" style="width: 64px; height: 64px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAABYUlEQVR4nO2UMY6DMBBFc/+jTOfOjTt3Lt37CL6Ctxo0ICgSljyt9hdPSkI0ejwGv+ac6z/zogVoFIAWoFEAWoBGAWgBGgWgBWgUgBagUQBagEYBaAEaBaAFaBSAFqBRAFqARgFoARoFoAVobgcopSwzW2a2cs6n/zGzlVJCZz4SoLW2zGz3ubW2+0+t9S3ZJ2Y+FiDnfPmE5pxrjLE9ySibc15mtsYY203WWm/NRAK4hAv5TRwDpZR2sr33ZWbbqsdrn87EAlytq38fY5zKxve89/4rM5EAvq6+mqWU7Zo/vTNZ34Lj73dmfj1ASulU1m/uSBS+WvM7M78ewE/jeJjFdY43FUXjascD8c5MJMCc+3f5eGBdycY19ycbT/5PZmIB/joKQAvQKAAtQKMAtACNAtACNApAC9AoAC1AowC0AI0C0AI0CkAL0CgALUCjALQAjQLQAjQKQAvQKAAtQPMDzp4gucW+rqcAAAAASUVORK5CYII=">*@
+                        <img class="media-object" src="@String.Format("data:image/png;base64,{0}", base64String)" alt="@item.Titulo" style="width: 64px; height: 64px;" />
+                    </a>
+                    <div class="media-body">
+                        <h4 class="media-heading">@Html.DisplayFor(modelItem => item.Titulo)</h4>
+                        @Html.DisplayFor(modelItem => item.Descricao)
+                        <p><b>@Html.DisplayFor(modelItem => item.Duracao) hrs</b></p>
+                    </div>
+                </div>
 
-                    @if (item.Sessao == null || item.Sessao.Count() == 0)
-                    {
-                        <span>|</span> @Html.ActionLink("Delete", "Delete", new { id = item.FilmeID })
-                    }
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.FilmeID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.FilmeID })
 
-                </td>
-            </tr>
+                @if (item.Sessao == null || item.Sessao.Count() == 0)
+                {
+                    <span>|</span> @Html.ActionLink("Delete", "Delete", new { id = item.FilmeID })
+                }
+            </td>
+
+           
+        </tr>
         }
 
     </table>

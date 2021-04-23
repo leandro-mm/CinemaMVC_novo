@@ -8,12 +8,15 @@
     <div class="container-login">
         <div class="content-login">
             <section id="loginForm">
-                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = Url.Action("Index","Filmes") }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = Url.Action("Index", "Filmes") }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                 {
                     @Html.AntiForgeryToken()
-                    if (ViewBag.Aviso != null)
+
+                    if (ViewBag.Aviso != null && !string.IsNullOrWhiteSpace(((string)ViewBag.Aviso)))
                     {
-                        <span class="badge bg-info">@ViewBag.Aviso</span>
+                <strong style="color:red">Aviso! @ViewBag.Aviso</strong> 
+
+
                         <br /><br />
                     }
                     <p>Email</p>
