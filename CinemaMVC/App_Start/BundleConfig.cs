@@ -11,6 +11,9 @@ namespace CinemaMVC
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/jqueryunobtrusiveajax").Include(
+                        "~/Scripts/jquery.unobtrusive-ajax.min.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
 
@@ -19,6 +22,13 @@ namespace CinemaMVC
 
             bundles.Add(new ScriptBundle("~/bundles/sweetalert").Include(
             "~/Scripts/sweetalert2.min.js"));
+
+            // chosen styles
+            bundles.Add(new StyleBundle("~/bundles/bootstrap-chosen-Styles").Include(
+                      "~/Content/bootstrap-chosen.css"));
+            // chosen 
+            bundles.Add(new ScriptBundle("~/bundles/bootstrap-chosen").Include(
+                      "~/Scripts/chosen.jquery.min.js"));
 
             //bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
             //  "~/Content/themes/base/jquery.ui.core.css",

@@ -12,15 +12,9 @@ namespace CinemaMVC.Models
     {
         public IEnumerable<Filme> Filmes { get; set; }
 
-        [Display(Name = "Título")]
-        public int FilmeID { get; set; }
-        
+        [Display(Name = "Nome do Filme")]
+        public int? FilmeID { get; set; }        
         public SelectList FilmeSelectLIst { get; set; }
-
-        [Display(Name = "Duração")]
-        public TimeSpan Duracao { get; set; }
-        public SelectList DuracaoSelectList { get; set; }
-
 
         public int FilmePerPage { get; set; }
         public int CurrentPage { get; set; }

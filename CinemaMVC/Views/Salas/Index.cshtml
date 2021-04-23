@@ -1,60 +1,78 @@
 ﻿@model IEnumerable<CinemaMVC.Models.Sala>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Lista de Salas";
 }
 
-<h2>Index</h2>
+<div class="row">
+    <div class="col-sm-6">
+        <h3>@ViewBag.Title</h3>
+        <ol class="breadcrumb">
+            <li>
+                <a href="@Url.Action("Index", "Sessoes")">Sessões</a>
+            </li>
+            <li>
+                <a href="@Url.Action("Index", "Filmes")">Filmes</a>
+            </li>
+            <li class="active">
+                <strong>@ViewBag.Title</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-sm-6">
+        <div style="text-align:right; padding-top:20px">
+            @Html.ActionLink("Adicionar Sala", "Create", null, new { @class = "btn btn-success btn-sm" })
+        </div>
+    </div>
+</div>
+    
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Nome)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.QtdAssentos)
-        </th>       
-        <th>
-            Sessões
-        </th>
-        <th></th>
-    </tr>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.QtdAssentos)
+            </th>
+            <th>
+                Sessões
+            </th>
+            <th></th>
+        </tr>
 
-@foreach (var item in Model)
-{
-    var possuiSessaoVinculada = CinemaMVC.Helpers.SessaoHelper.HasSessaoVinculada(item.SalaID);  
+        @foreach (var item in Model)
+        {
+            var possuiSessaoVinculada = CinemaMVC.Helpers.SessaoHelper.HasSessaoVinculada(item.SalaID);
 
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.QtdAssentos)
-        </td>       
-        <td>
-            @if (possuiSessaoVinculada)
-            {
-                foreach (var item2 in CinemaMVC.Helpers.SessaoHelper.GetSessoesBySalaID(item.SalaID))
-                {
-                    <span>@item2</span>
-                    <br />
-                }
-            }
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.SalaID }) |
-            @Html.ActionLink("Details", "Details", new { id = item.SalaID })
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.QtdAssentos)
+                </td>
+                <td>
+                    @if (possuiSessaoVinculada)
+                    {
+                        foreach (var item2 in CinemaMVC.Helpers.SessaoHelper.GetSessoesBySalaID(item.SalaID))
+                        {
+                            <span>@item2</span>
+                            <br />
+                        }
+                    }
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.SalaID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.SalaID })
 
-            @if (!possuiSessaoVinculada)
-            {
-                <span>|</span> @Html.ActionLink("Delete", "Delete", new { id = item.SalaID })
-            }
+                    @if (!possuiSessaoVinculada)
+                    {
+                        <span>|</span> @Html.ActionLink("Delete", "Delete", new { id = item.SalaID })
+                    }
 
-        </td>
-    </tr>
-}
+                </td>
+            </tr>
+        }
 
-</table>
+    </table>

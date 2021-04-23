@@ -1,10 +1,26 @@
 ﻿@model CinemaMVC.Models.TipoAudio
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Detalhes Tipo Áudio";
 }
 
-<h2>Details</h2>
+<div class="row">
+    <div class="col-sm-6">
+        <h3>@ViewBag.Title</h3>
+        <ol class="breadcrumb">
+            <li>
+                <a href="@Url.Action("Index", "Sessoes")">Sessões</a>
+            </li>
+            <li>
+                <a href="@Url.Action("Index", "Filmes")">Filmes</a>
+            </li>
+            <li class="active">
+                <strong>@ViewBag.Title</strong>
+            </li>
+        </ol>
+    </div>
+   
+</div>
 
 <div>
     <h4>TipoAudio</h4>

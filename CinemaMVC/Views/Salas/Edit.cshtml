@@ -1,21 +1,34 @@
 ﻿@model CinemaMVC.Models.SalaEditViewModel
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Editar Dados Sala";
     var opcao2PossuiSessao = CinemaMVC.Helpers.SessaoHelper.HasSessaoVinculada(Model.SalaID, Model.TipoAudioID2, Model.TipoAnimacaoID2);
     var opcao3PossuiSessao = CinemaMVC.Helpers.SessaoHelper.HasSessaoVinculada(Model.SalaID, Model.TipoAudioID3, Model.TipoAnimacaoID3);
 }
 
-<h2>Edit</h2>
-
+<div class="row">
+    <div class="col-sm-6">
+        <h3>@ViewBag.Title</h3>
+        <ol class="breadcrumb">
+            <li>
+                <a href="@Url.Action("Index", "Sessoes")">Sessões</a>
+            </li>
+            <li>
+                <a href="@Url.Action("Index", "Filmes")">Filmes</a>
+            </li>
+            <li class="active">
+                <strong>@ViewBag.Title</strong>
+            </li>
+        </ol>
+    </div>    
+</div>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     
 <div class="form-horizontal">
-    <h4>Sala</h4>
-    <hr />
+    
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     @Html.HiddenFor(model => model.SalaID)
     @Html.HiddenFor(model => model.SalaAudioAnimacaoID1)

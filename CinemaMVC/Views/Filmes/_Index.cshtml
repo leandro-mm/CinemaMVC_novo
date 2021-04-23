@@ -1,0 +1,89 @@
+﻿@model CinemaMVC.Models.FilmeIndexViewModel
+
+@{
+    ViewBag.Title = "Lista de Filmes";
+}
+
+@if (Model != null && Model.Filmes != null && Model.Filmes.Count() > 0)
+{
+
+    <table class="table">
+        <tr>
+            <th>
+                Titulo
+            </th>
+            <th>
+                Descricao
+            </th>
+            <th>
+                Duracao
+            </th>
+            <th>
+                Imagem
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model.Filmes)
+        {
+            string base64String = item.ImagemFilme != null ? Convert.ToBase64String(item.ImagemFilme.Imagem) : String.Empty;
+
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Titulo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Descricao)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Duracao)
+                </td>
+                <td>
+                    @if (!string.IsNullOrWhiteSpace(base64String))
+                    {
+                        <img src="@String.Format("data:image/png;base64,{0}", base64String)" alt="@item.Titulo" style="width: 20%" />
+                    }
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.FilmeID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.FilmeID })
+
+                    @if (item.Sessao == null || item.Sessao.Count() == 0)
+                    {
+                        <span>|</span> @Html.ActionLink("Delete", "Delete", new { id = item.FilmeID })
+                    }
+
+                </td>
+            </tr>
+        }
+
+    </table>
+    if (Model.GetPaginatedFilmes() != null && Model.GetPaginatedFilmes().Any())
+    {
+        <div style="float: right">
+            <span style="color:blue">@Model.GetPaginatedFilmes().Count()/@Model.Filmes.Count()</span>
+            <ul class="pagination">
+
+                @for (int i = 1; i <= Model.GetPageCount(); i++)
+                {
+                    <li class="@(i == Model.CurrentPage ? "page-item active" : "page-item")">
+                        <a class="page-link" href="@Url.Action("Index", new { page = i })">@i</a>
+                    </li>
+                }
+            </ul>
+        </div>
+
+    }
+}
+else
+{ 
+    <div class="w3-container w3-pale-blue w3-leftbar w3-border-blue">
+            
+        <p style="text-align:left">Nenhum Resultado</p>
+
+    </div>
+
+}
+
+
+

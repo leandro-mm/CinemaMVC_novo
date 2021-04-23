@@ -23,9 +23,19 @@ namespace CinemaMVC.Controllers
             {
                 FilmePerPage = 5,
                 Filmes = db.Filme.OrderBy(d => d.Titulo),
+                FilmeSelectLIst = new SelectList(db.Filme, "FilmeID", "Titulo"),               
                 CurrentPage = page
             };
             return View(ViewModel);
+        }
+
+        // POst: Filmes
+        [HttpPost]
+        public ActionResult Index(FilmeIndexViewModel ViewModel)
+        {
+            ViewModel.Filmes = db.Filme.Where(f=> f.FilmeID == (ViewModel.FilmeID ?? f.FilmeID));            
+            ViewModel.FilmeSelectLIst = new SelectList(db.Filme, "FilmeID", "Titulo", ViewModel.FilmeID ?? ViewModel.FilmeID);   
+            return PartialView("_Index", ViewModel);
         }
 
         // GET: Filmes/Details/5

@@ -1,10 +1,25 @@
 ﻿@model CinemaMVC.Models.TipoAnimacao
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Editar dados Tipo Animação";
 }
 
-<h2>Edit</h2>
+<div class="row">
+    <div class="col-sm-6">
+        <h3>@ViewBag.Title</h3>
+        <ol class="breadcrumb">
+            <li>
+                <a href="@Url.Action("Index", "Sessoes")">Sessões</a>
+            </li>
+            <li>
+                <a href="@Url.Action("Index", "Filmes")">Filmes</a>
+            </li>
+            <li class="active">
+                <strong>@ViewBag.Title</strong>
+            </li>
+        </ol>
+    </div>   
+</div>
 
 
 @using (Html.BeginForm())

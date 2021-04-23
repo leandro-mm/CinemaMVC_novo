@@ -8,15 +8,19 @@
 
     @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/fontawesome")
+    @Styles.Render("~/bundles/bootstrap-chosen-Styles")
 
 </head>
 <body>
 
     <div id="wrapper">
+
+       
+
         <!-- Navigation -->
         @Html.Partial("_Navigation")
 
-        <!-- Page wraper -->
+         @*Page wraper*@ 
         <div class="main">
             <!-- Top Navbar -->
             @Html.Partial("_LoginPartial")
@@ -29,15 +33,16 @@
         <!-- End page wrapper-->
 
     </div>
-       
 
-        @Scripts.Render("~/bundles/modernizr")
-        @Scripts.Render("~/bundles/jquery")
-        @Scripts.Render("~/bundles/bootstrap")
-        @Scripts.Render("~/bundles/jqueryui")
-        @Scripts.Render("~/bundles/jqueryval")
-        @Scripts.Render("~/bundles/sweetalert")
-        @RenderSection("scripts", required: false)
+
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryunobtrusiveajax")
+    @Scripts.Render("~/bundles/bootstrap-chosen")    
+    @RenderSection("scripts", required: false)
 
 
 </body>

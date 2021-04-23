@@ -1,15 +1,27 @@
 ﻿@model CinemaMVC.Models.Sessao
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Deletar Sessão";
 }
 
-<h2>Delete</h2>
+<div class="row">
+    <div class="col-sm-6">
+        <h3>@ViewBag.Title</h3>
+        <ol class="breadcrumb">
+            <li>
+                <a href="@Url.Action("Index", "Filmes")">Filmes</a>
+            </li>
+            <li class="active">
+                <strong>@ViewBag.Title</strong>
+            </li>
+        </ol>
+    </div>   
+</div>
 
 <h3>Are you sure you want to delete this?</h3>
+<hr />
 <div>
-    <h4>Sessao</h4>
-    <hr />
+ 
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.Data)

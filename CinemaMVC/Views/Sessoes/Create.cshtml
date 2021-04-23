@@ -1,10 +1,22 @@
 ﻿@model CinemaMVC.Models.SessaoCreateViewModel
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "LIsta de Sessões";
 }
 
-<h2>Create</h2>
+<div class="row">
+    <div class="col-sm-6">
+        <h3>@ViewBag.Title</h3>
+        <ol class="breadcrumb">            
+            <li>
+                <a href="@Url.Action("Index", "Filmes")">Filmes</a>
+            </li>
+            <li class="active">
+                <strong>@ViewBag.Title</strong>
+            </li>
+        </ol>
+    </div>  
+</div>
 
 
 @using (Html.BeginForm())
@@ -12,7 +24,7 @@
     @Html.AntiForgeryToken()
 
 <div class="form-horizontal">
-    <h4>Sessao</h4>
+
 
     <div class="w3-panel w3-warning" style="display:none;width:50%" id="panelError">
         <p id="spanError"><strong>Erro:</strong></p>
