@@ -21,9 +21,8 @@ namespace CinemaMVC.Models
         public TimeSpan HorarioFim { get; set; }
 
         [Required]
-        [Display(Name = "Valor Ingresso")]
-        [DisplayFormat(DataFormatString = "{0:N}", ApplyFormatInEditMode = true)]
-        public decimal? ValorIngresso { get; set; }
+        [Display(Name = "Valor Ingresso")]        
+        public int? ValorIngresso { get; set; }
 
         [Required]
         [Display(Name = "Sala")]

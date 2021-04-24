@@ -15,7 +15,7 @@
           <Property Name="Duracao" Type="time" Precision="0" Nullable="false" />
           <Property Name="ImagemID" Type="int" />
         </EntityType>
-        <EntityType Name="ImagemFilme">
+        <EntityType Name="Imagem">
           <Key>
             <PropertyRef Name="ImagemID" />
           </Key>
@@ -47,7 +47,7 @@
           <Property Name="Data" Type="date" Nullable="false" />
           <Property Name="HorarioInicio" Type="time" Precision="0" Nullable="false" />
           <Property Name="HorarioFim" Type="time" Precision="0" Nullable="false" />
-          <Property Name="ValorIngresso" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="ValorIngresso" Type="int" Nullable="false" />
           <Property Name="SalaAudioAnimacaoID" Type="int" Nullable="false" />
           <Property Name="FilmeID" Type="int" Nullable="false" />
         </EntityType>
@@ -95,7 +95,7 @@ warning 6002: The table/view 'Cinema.dbo.vwSessao' does not have a primary key d
           <Property Name="Sala" Type="nvarchar" MaxLength="165" Nullable="false" />
           <Property Name="HorarioInicio" Type="nvarchar" MaxLength="4000" />
           <Property Name="HorarioFim" Type="nvarchar" MaxLength="4000" />
-          <Property Name="ValorIngresso" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="ValorIngresso" Type="int" Nullable="false" />
           <Property Name="FilmeID" Type="int" Nullable="false" />
           <Property Name="NomeFilme" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="TipoAnimacaoID" Type="int" Nullable="false" />
@@ -114,10 +114,10 @@ warning 6002: The table/view 'Cinema.dbo.vwSessao' does not have a primary key d
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Filme_ImagemFilme">
-          <End Role="ImagemFilme" Type="Self.ImagemFilme" Multiplicity="0..1" />
+          <End Role="Imagem" Type="Self.Imagem" Multiplicity="0..1" />
           <End Role="Filme" Type="Self.Filme" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="ImagemFilme">
+            <Principal Role="Imagem">
               <PropertyRef Name="ImagemID" />
             </Principal>
             <Dependent Role="Filme">
@@ -175,7 +175,7 @@ warning 6002: The table/view 'Cinema.dbo.vwSessao' does not have a primary key d
         </Association>
         <EntityContainer Name="CinemaModelStoreContainer">
           <EntitySet Name="Filme" EntityType="Self.Filme" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ImagemFilme" EntityType="Self.ImagemFilme" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Imagem" EntityType="Self.Imagem" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sala" EntityType="Self.Sala" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SalaAudioAnimacao" EntityType="Self.SalaAudioAnimacao" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sessao" EntityType="Self.Sessao" Schema="dbo" store:Type="Tables" />
@@ -207,7 +207,7 @@ warning 6002: The table/view 'Cinema.dbo.vwSessao' does not have a primary key d
             <End Role="SalaAudioAnimacao" EntitySet="SalaAudioAnimacao" />
           </AssociationSet>
           <AssociationSet Name="FK_Filme_ImagemFilme" Association="Self.FK_Filme_ImagemFilme">
-            <End Role="ImagemFilme" EntitySet="ImagemFilme" />
+            <End Role="Imagem" EntitySet="Imagem" />
             <End Role="Filme" EntitySet="Filme" />
           </AssociationSet>
           <AssociationSet Name="FK_Sala_SalaAudioAnimacao" Association="Self.FK_Sala_SalaAudioAnimacao">
@@ -250,14 +250,9 @@ warning 6002: The table/view 'Cinema.dbo.vwSessao' does not have a primary key d
         <EntityContainer Name="CinemaEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="TipoAnimacao" EntityType="Self.TipoAnimacao" />
           <EntitySet Name="TipoAudio" EntityType="Self.TipoAudio" />
-          <EntitySet Name="ImagemFilme" EntityType="CinemaModel.ImagemFilme" />
           <EntitySet Name="Filme" EntityType="CinemaModel.Filme" />
           <EntitySet Name="Sala" EntityType="CinemaModel.Sala" />
           <EntitySet Name="SalaAudioAnimacao" EntityType="CinemaModel.SalaAudioAnimacao" />
-          <AssociationSet Name="FK_Filme_ImagemFilme" Association="CinemaModel.FK_Filme_ImagemFilme">
-            <End Role="ImagemFilme" EntitySet="ImagemFilme" />
-            <End Role="Filme" EntitySet="Filme" />
-          </AssociationSet>
           <AssociationSet Name="FK_Sala_SalaAudioAnimacao" Association="CinemaModel.FK_Sala_SalaAudioAnimacao">
             <End Role="Sala" EntitySet="Sala" />
             <End Role="SalaAudioAnimacao" EntitySet="SalaAudioAnimacao" />
@@ -271,7 +266,12 @@ warning 6002: The table/view 'Cinema.dbo.vwSessao' does not have a primary key d
             <End Role="SalaAudioAnimacao" EntitySet="SalaAudioAnimacao" />
           </AssociationSet>
           <EntitySet Name="vwSala" EntityType="CinemaModel.vwSala" />
+          <EntitySet Name="Imagem" EntityType="CinemaModel.Imagem" />
           <EntitySet Name="Sessao" EntityType="CinemaModel.Sessao" />
+          <AssociationSet Name="FK_Filme_ImagemFilme" Association="CinemaModel.FK_Filme_ImagemFilme">
+            <End Role="Imagem" EntitySet="Imagem" />
+            <End Role="Filme" EntitySet="Filme" />
+          </AssociationSet>
           <AssociationSet Name="FK_Sessao_Filme" Association="CinemaModel.FK_Sessao_Filme">
             <End Role="Filme" EntitySet="Filme" />
             <End Role="Sessao" EntitySet="Sessao" />
@@ -282,14 +282,6 @@ warning 6002: The table/view 'Cinema.dbo.vwSessao' does not have a primary key d
           </AssociationSet>
           <EntitySet Name="vwSessao" EntityType="CinemaModel.vwSessao" />
           </EntityContainer>
-        <EntityType Name="ImagemFilme">
-          <Key>
-            <PropertyRef Name="ImagemID" />
-          </Key>
-          <Property Name="ImagemID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Imagem" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <NavigationProperty Name="Filme" Relationship="CinemaModel.FK_Filme_ImagemFilme" FromRole="ImagemFilme" ToRole="Filme" />
-        </EntityType>
         <EntityType Name="Filme">
           <Key>
             <PropertyRef Name="FilmeID" />
@@ -299,7 +291,7 @@ warning 6002: The table/view 'Cinema.dbo.vwSessao' does not have a primary key d
           <Property Name="Descricao" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="Duracao" Type="Time" Nullable="false" Precision="0" />
           <Property Name="ImagemID" Type="Int32" />
-          <NavigationProperty Name="ImagemFilme" Relationship="CinemaModel.FK_Filme_ImagemFilme" FromRole="Filme" ToRole="ImagemFilme" />
+          <NavigationProperty Name="Imagem" Relationship="CinemaModel.FK_Filme_ImagemFilme" FromRole="Filme" ToRole="Imagem" />
           <NavigationProperty Name="Sessao" Relationship="CinemaModel.FK_Sessao_Filme" FromRole="Filme" ToRole="Sessao" />
         </EntityType>
         <EntityType Name="Sala">
@@ -324,18 +316,6 @@ warning 6002: The table/view 'Cinema.dbo.vwSessao' does not have a primary key d
           <NavigationProperty Name="TipoAnimacao" Relationship="CinemaModel.FK_TipoAnimacao_SalaAudioAnimacao" FromRole="SalaAudioAnimacao" ToRole="TipoAnimacao" />
           <NavigationProperty Name="Sessao" Relationship="CinemaModel.FK_SalaAudioAnimacao" FromRole="SalaAudioAnimacao" ToRole="Sessao" />
         </EntityType>
-        <Association Name="FK_Filme_ImagemFilme">
-          <End Type="CinemaModel.ImagemFilme" Role="ImagemFilme" Multiplicity="0..1" />
-          <End Type="CinemaModel.Filme" Role="Filme" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ImagemFilme">
-              <PropertyRef Name="ImagemID" />
-            </Principal>
-            <Dependent Role="Filme">
-              <PropertyRef Name="ImagemID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Sala_SalaAudioAnimacao">
           <End Type="CinemaModel.Sala" Role="Sala" Multiplicity="1" />
           <End Type="CinemaModel.SalaAudioAnimacao" Role="SalaAudioAnimacao" Multiplicity="*" />
@@ -380,6 +360,14 @@ warning 6002: The table/view 'Cinema.dbo.vwSessao' does not have a primary key d
           <Property Name="SalaAudioAnimacaoID" Type="Int32" Nullable="false" />
           <Property Name="SalaNome" Type="String" Nullable="false" MaxLength="165" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="Imagem">
+          <Key>
+            <PropertyRef Name="ImagemID" />
+          </Key>
+          <Property Name="ImagemID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Imagem1" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="Filme" Relationship="CinemaModel.FK_Filme_ImagemFilme" FromRole="Imagem" ToRole="Filme" />
+        </EntityType>
         <EntityType Name="Sessao">
           <Key>
             <PropertyRef Name="SessaoID" />
@@ -388,12 +376,24 @@ warning 6002: The table/view 'Cinema.dbo.vwSessao' does not have a primary key d
           <Property Name="Data" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="HorarioInicio" Type="Time" Nullable="false" Precision="0" />
           <Property Name="HorarioFim" Type="Time" Nullable="false" Precision="0" />
-          <Property Name="ValorIngresso" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="ValorIngresso" Type="Int32" Nullable="false" />
           <Property Name="SalaAudioAnimacaoID" Type="Int32" Nullable="false" />
           <Property Name="FilmeID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Filme" Relationship="CinemaModel.FK_Sessao_Filme" FromRole="Sessao" ToRole="Filme" />
           <NavigationProperty Name="SalaAudioAnimacao" Relationship="CinemaModel.FK_SalaAudioAnimacao" FromRole="Sessao" ToRole="SalaAudioAnimacao" />
         </EntityType>
+        <Association Name="FK_Filme_ImagemFilme">
+          <End Type="CinemaModel.Imagem" Role="Imagem" Multiplicity="0..1" />
+          <End Type="CinemaModel.Filme" Role="Filme" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Imagem">
+              <PropertyRef Name="ImagemID" />
+            </Principal>
+            <Dependent Role="Filme">
+              <PropertyRef Name="ImagemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Sessao_Filme">
           <End Type="CinemaModel.Filme" Role="Filme" Multiplicity="1" />
           <End Type="CinemaModel.Sessao" Role="Sessao" Multiplicity="*" />
@@ -436,7 +436,7 @@ warning 6002: The table/view 'Cinema.dbo.vwSessao' does not have a primary key d
           <Property Name="Sala" Type="String" Nullable="false" MaxLength="165" FixedLength="false" Unicode="true" />
           <Property Name="HorarioInicio" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
           <Property Name="HorarioFim" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
-          <Property Name="ValorIngresso" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="ValorIngresso" Type="Int32" Nullable="false" />
           <Property Name="FilmeID" Type="Int32" Nullable="false" />
           <Property Name="NomeFilme" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="TipoAnimacaoID" Type="Int32" Nullable="false" />
@@ -461,14 +461,6 @@ warning 6002: The table/view 'Cinema.dbo.vwSessao' does not have a primary key d
               <MappingFragment StoreEntitySet="TipoAudio">
                 <ScalarProperty Name="TipoAudioID" ColumnName="TipoAudioID" />
                 <ScalarProperty Name="Descricao" ColumnName="Descricao" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ImagemFilme">
-            <EntityTypeMapping TypeName="CinemaModel.ImagemFilme">
-              <MappingFragment StoreEntitySet="ImagemFilme">
-                <ScalarProperty Name="Imagem" ColumnName="Imagem" />
-                <ScalarProperty Name="ImagemID" ColumnName="ImagemID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -507,6 +499,14 @@ warning 6002: The table/view 'Cinema.dbo.vwSessao' does not have a primary key d
               <MappingFragment StoreEntitySet="vwSala">
                 <ScalarProperty Name="SalaNome" ColumnName="SalaNome" />
                 <ScalarProperty Name="SalaAudioAnimacaoID" ColumnName="SalaAudioAnimacaoID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Imagem">
+            <EntityTypeMapping TypeName="CinemaModel.Imagem">
+              <MappingFragment StoreEntitySet="Imagem">
+                <ScalarProperty Name="Imagem1" ColumnName="Imagem" />
+                <ScalarProperty Name="ImagemID" ColumnName="ImagemID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

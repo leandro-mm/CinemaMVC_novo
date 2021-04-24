@@ -276,7 +276,7 @@
       <DependentUpon>CinemaMvcModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\ImagemFilme.cs">
+    <Compile Include="Models\Imagem.cs">
       <DependentUpon>CinemaMvcModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ManageViewModels.cs" />

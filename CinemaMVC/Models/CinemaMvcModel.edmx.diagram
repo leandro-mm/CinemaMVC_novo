@@ -7,16 +7,16 @@
       <Diagram DiagramId="be8f336de59240dcbf1c988a4c77e452" Name="Diagram1">
         <EntityTypeShape EntityType="CinemaModel.TipoAnimacao" Width="1.5" PointX="3.75" PointY="7.25" IsExpanded="true" />
         <EntityTypeShape EntityType="CinemaModel.TipoAudio" Width="1.5" PointX="3.75" PointY="9.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="CinemaModel.ImagemFilme" Width="1.5" PointX="8.375" PointY="1.375" />
         <EntityTypeShape EntityType="CinemaModel.Filme" Width="1.5" PointX="11.25" PointY="2.625" />
         <EntityTypeShape EntityType="CinemaModel.Sala" Width="1.5" PointX="6.75" PointY="4.375" />
         <EntityTypeShape EntityType="CinemaModel.SalaAudioAnimacao" Width="1.5" PointX="9" PointY="6.5" />
-        <AssociationConnector Association="CinemaModel.FK_Filme_ImagemFilme" />
         <AssociationConnector Association="CinemaModel.FK_Sala_SalaAudioAnimacao" />
         <AssociationConnector Association="CinemaModel.FK_Audio_SalaAudioAnimacao" />
         <AssociationConnector Association="CinemaModel.FK_TipoAnimacao_SalaAudioAnimacao" />
         <EntityTypeShape EntityType="CinemaModel.vwSala" Width="1.5" PointX="3.375" PointY="0.75" />
-        <EntityTypeShape EntityType="CinemaModel.Sessao" Width="1.5" PointX="13.5" PointY="2.5" />
+        <EntityTypeShape EntityType="CinemaModel.Imagem" Width="1.5" PointX="9" PointY="3" />
+        <EntityTypeShape EntityType="CinemaModel.Sessao" Width="1.5" PointX="13.5" PointY="4.5" />
+        <AssociationConnector Association="CinemaModel.FK_Filme_ImagemFilme" />
         <AssociationConnector Association="CinemaModel.FK_Sessao_Filme" />
         <AssociationConnector Association="CinemaModel.FK_SalaAudioAnimacao" />
         <EntityTypeShape EntityType="CinemaModel.vwSessao" Width="1.5" PointX="0.75" PointY="0.75" />

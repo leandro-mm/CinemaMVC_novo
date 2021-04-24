@@ -27,11 +27,11 @@ namespace CinemaMVC.Models
     
         public virtual DbSet<TipoAnimacao> TipoAnimacao { get; set; }
         public virtual DbSet<TipoAudio> TipoAudio { get; set; }
-        public virtual DbSet<ImagemFilme> ImagemFilme { get; set; }
         public virtual DbSet<Filme> Filme { get; set; }
         public virtual DbSet<Sala> Sala { get; set; }
         public virtual DbSet<SalaAudioAnimacao> SalaAudioAnimacao { get; set; }
         public virtual DbSet<vwSala> vwSala { get; set; }
+        public virtual DbSet<Imagem> Imagem { get; set; }
         public virtual DbSet<Sessao> Sessao { get; set; }
         public virtual DbSet<vwSessao> vwSessao { get; set; }
     }

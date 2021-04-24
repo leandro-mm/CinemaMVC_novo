@@ -12,16 +12,16 @@ namespace CinemaMVC.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class ImagemFilme
+    public partial class Imagem
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ImagemFilme()
+        public Imagem()
         {
             this.Filme = new HashSet<Filme>();
         }
     
         public int ImagemID { get; set; }
-        public byte[] Imagem { get; set; }
+        public byte[] Imagem1 { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Filme> Filme { get; set; }

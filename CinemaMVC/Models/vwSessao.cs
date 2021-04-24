@@ -20,7 +20,7 @@ namespace CinemaMVC.Models
         public string Sala { get; set; }
         public string HorarioInicio { get; set; }
         public string HorarioFim { get; set; }
-        public decimal ValorIngresso { get; set; }
+        public int ValorIngresso { get; set; }
         public int FilmeID { get; set; }
         public string NomeFilme { get; set; }
         public int TipoAnimacaoID { get; set; }

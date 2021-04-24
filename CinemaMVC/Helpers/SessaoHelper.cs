@@ -161,7 +161,20 @@ namespace CinemaMVC.Helpers
             return result;
         }//end method
 
-
+        public static bool ValidarCreateSessao()
+        {
+            try
+            {
+                using (CinemaEntities db = new CinemaEntities())
+                {
+                    return db.Filme.Count() > 0 && db.Sala.Count() > 0;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
 
     }//end namespace
 }//end class

@@ -12,7 +12,7 @@ namespace CinemaMVC.Models
         public int SessaoID { get; set; }
 
         [Required]
-        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime? Data { get; set; }
 
         [Required]
@@ -23,8 +23,8 @@ namespace CinemaMVC.Models
         public TimeSpan HorarioFim { get; set; }
 
         [Required]
-        [Display(Name = "Valor Ingresso")]       
-        public decimal? ValorIngresso { get; set; }
+        [Display(Name = "Valor Ingresso")]
+        public int? ValorIngresso { get; set; }
 
         [Required]
         [Display(Name = "Sala")]

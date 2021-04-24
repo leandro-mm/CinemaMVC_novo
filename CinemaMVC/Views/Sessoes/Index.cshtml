@@ -52,7 +52,7 @@
     var horario = item.HorarioInicio.ToString() + " às " + item.HorarioFim.ToString();
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Data) <span class="label label-primary">@DateTime.Now</span>  <span class="label label-success">@DateTime.Now.AddDays(10)</span>
+            @Html.DisplayFor(modelItem => data)
         </td>
         <td>
             @Html.DisplayFor(modelItem => horario)

@@ -79,14 +79,14 @@ namespace CinemaMVC.Controllers
             {
                 try
                 {
-                    ImagemFilme imagemFilme = null;
+                    Imagem imagemFilme = null;
                     if (ViewModel.uploadFile != null && ViewModel.uploadFile.ContentLength > 0)
                     {
                         using (MemoryStream ms = new MemoryStream())
                         {
                             ViewModel.uploadFile.InputStream.CopyTo(ms);
                             byte[] array = ms.GetBuffer();
-                            imagemFilme = new ImagemFilme { Imagem = array };
+                            imagemFilme = new Imagem { Imagem1 = array };
                         }
                     }
 
@@ -95,7 +95,7 @@ namespace CinemaMVC.Controllers
                         Titulo = ViewModel.Titulo,
                         Descricao = ViewModel.Descricao,
                         Duracao = ViewModel.Duracao.Value,
-                        ImagemFilme = imagemFilme
+                        Imagem = imagemFilme
                     };
 
                     db.Filme.Add(filme);
@@ -138,8 +138,8 @@ namespace CinemaMVC.Controllers
                 Titulo = filme.Titulo,
                 Descricao = filme.Descricao,
                 Duracao = filme.Duracao,
-                ImagemID = filme.ImagemFilme == null ? 0 : filme.ImagemFilme.ImagemID,
-                Imagem = filme.ImagemFilme == null ? null : filme.ImagemFilme.Imagem
+                ImagemID = filme.Imagem == null ? 0 : filme.Imagem.ImagemID,
+                Imagem = filme.Imagem == null ? null : filme.Imagem.Imagem1
             };
             return View(ViewModel);
         }
@@ -176,7 +176,7 @@ namespace CinemaMVC.Controllers
                         filme.Titulo = ViewModel.Titulo;
                         filme.Descricao = ViewModel.Descricao;
                         filme.Duracao = ViewModel.Duracao.Value;
-                        filme.ImagemFilme.Imagem = array;
+                        filme.Imagem.Imagem1 = array;
                         db.Entry(filme).State = EntityState.Modified;
                         db.SaveChanges();
                     }

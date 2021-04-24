@@ -18,7 +18,7 @@ namespace CinemaMVC.Models
         public System.DateTime Data { get; set; }
         public System.TimeSpan HorarioInicio { get; set; }
         public System.TimeSpan HorarioFim { get; set; }
-        public decimal ValorIngresso { get; set; }
+        public int ValorIngresso { get; set; }
         public int SalaAudioAnimacaoID { get; set; }
         public int FilmeID { get; set; }
     
