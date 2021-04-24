@@ -26,39 +26,36 @@
     </div>
 </div>
 
-<table class="table">
+<table class="table table-striped">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Data)
+            Data
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.HorarioInicio)
+            Horário
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.HorarioFim)
+            Ingresso
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ValorIngresso)
+            Filme
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.NomeFilme)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Sala)
+            Sala
         </th>        
-        <th></th>
+        <th data-type="html"></th>
     </tr>
 
-@foreach (var item in Model) {
+@foreach (var item in Model.OrderBy(d=>d.Data).ThenBy(h=>h.HorarioInicio))
+{
+    var data = item.Data.ToShortDateString();
+    var horario = item.HorarioInicio.ToString() + " às " + item.HorarioFim.ToString();
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Data)
+            @Html.DisplayFor(modelItem => item.Data) <span class="label label-primary">@DateTime.Now</span>  <span class="label label-success">@DateTime.Now.AddDays(10)</span>
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.HorarioInicio)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.HorarioFim)
+            @Html.DisplayFor(modelItem => horario)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.ValorIngresso)
@@ -70,9 +67,19 @@
             @Html.DisplayFor(modelItem => item.Sala)
         </td>        
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.SessaoID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.SessaoID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.SessaoID })
+            @Html.ActionLink(" ", "Edit", new { id = item.SessaoID }, new { @class = "btn btn-primary btn-circle fa fa-pencil-square-o", @data_toggle = "tooltip", @data_placement = "top", @title = "Alterar" })
+            @Html.ActionLink(" ", "Details", new { id = item.SessaoID }, new { @class = "btn btn-primary btn-circle fa fa-eye", @data_toggle = "tooltip", @data_placement = "top", @title = "Visualizar" })
+
+
+            @if (item.Data.Date < DateTime.Now.Date || (item.Data.Date >= DateTime.Now.AddDays(10)))
+            {
+                @Html.ActionLink(" ", "Delete", new { id = item.SessaoID }, new { @class = "btn btn-danger btn-circle fa fa-trash-o", @data_toggle = "tooltip", @data_placement = "top", @title = "Deletar" })
+            }
+            else
+            {
+                <button class="btn btn-danger btn-circle fa fa-trash-o" disabled="disabled"></button>
+            }
+
         </td>
     </tr>
 }

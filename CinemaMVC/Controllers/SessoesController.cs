@@ -134,20 +134,45 @@ namespace CinemaMVC.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "SessaoID,Data,HorarioInicio,HorarioFim,ValorIngresso,FilmeID,SalaID,TipoAudioID,TipoAnimacaoID")] Sessao sessao)
+        public ActionResult Edit([Bind(Include = "SessaoID,Data,HorarioInicio,HorarioFim,ValorIngresso,SalaAudioAnimacaoID,SalaAudioAnimacaoSelectList,FilmeID,FilmeSelectList")] SessaoEditViewModel ViewModel)
         {
          
             if (ModelState.IsValid)
             {
-                db.Entry(sessao).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                try
+                {
+                    var sessaoDb = db.Sessao.Where(s => s.SessaoID == ViewModel.SessaoID).FirstOrDefault();
+
+                    if (sessaoDb != null)
+                    {
+                        sessaoDb.Data = ViewModel.Data.Value;
+                        sessaoDb.HorarioInicio = ViewModel.HorarioInicio.Value;
+                        sessaoDb.HorarioFim = ViewModel.HorarioInicio.Value;
+                        sessaoDb.ValorIngresso = ViewModel.ValorIngresso.Value;
+                        sessaoDb.SalaAudioAnimacaoID = ViewModel.SalaAudioAnimacaoID.Value;
+                        sessaoDb.FilmeID = ViewModel.FilmeID.Value;
+
+                        db.Entry(sessaoDb).State = EntityState.Modified;
+                        db.SaveChanges();
+                        return RedirectToAction("Index");
+                    }
+                    
+                }
+                catch (Exception ex)
+                {
+                    var erro = ex.Message;
+                    var msg1 = ex.InnerException != null ? ex.InnerException.Message : "";
+                    var msg2 = ex.InnerException != null ? (ex.InnerException.InnerException != null ? ex.InnerException.InnerException.Message : "") : "";
+                    var finalMessage = erro + " " + msg1 + " " + msg2;
+                    ViewBag.Mensagem = finalMessage;
+                    return View("~/Views/Shared/Error.cshtml");
+                }
             }
-            //ViewBag.FilmeID = new SelectList(db.Filme, "FilmeID", "Titulo", sessao.FilmeID);
-            //ViewBag.SalaID = new SelectList(db.Sala, "SalaID", "Nome", sessao.SalaID);
-            //ViewBag.TipoAnimacaoID = new SelectList(db.TipoAnimacao, "TipoAnimacaoID", "Descricao", sessao.TipoAnimacaoID);
-            //ViewBag.TipoAudioID = new SelectList(db.TipoAudio, "TipoAudioID", "Descricao", sessao.TipoAudioID);
-            return View(sessao);
+
+            ViewModel.SalaAudioAnimacaoSelectList = new SelectList(db.vwSala, "SalaAudioAnimacaoID", "SalaNome", ViewModel.SalaAudioAnimacaoID);
+            ViewModel.FilmeSelectList = new SelectList(db.Filme, "FilmeID", "Titulo", ViewModel.FilmeID);
+
+            return View(ViewModel);
         }
 
         // GET: Sessoes/Delete/5
