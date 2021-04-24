@@ -17,9 +17,10 @@ namespace CinemaMVC.Models
         [Required]
         [Display(Name = "Descrição")]
         public string Descricao { get; set; }
+
         [Required]
         [Display(Name = "Duração")]
-        public TimeSpan Duracao { get; set; }
+        public TimeSpan? Duracao { get; set; }
         [Required]
         public HttpPostedFileBase uploadFile { get; set; }
          

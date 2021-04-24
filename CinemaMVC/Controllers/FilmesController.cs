@@ -92,7 +92,7 @@ namespace CinemaMVC.Controllers
                     {
                         Titulo = ViewModel.Titulo,
                         Descricao = ViewModel.Descricao,
-                        Duracao = ViewModel.Duracao,
+                        Duracao = ViewModel.Duracao.Value,
                         ImagemFilme = imagemFilme
                     };
 
@@ -173,7 +173,7 @@ namespace CinemaMVC.Controllers
                     {
                         filme.Titulo = ViewModel.Titulo;
                         filme.Descricao = ViewModel.Descricao;
-                        filme.Duracao = ViewModel.Duracao;
+                        filme.Duracao = ViewModel.Duracao.Value;
                         filme.ImagemFilme.Imagem = array;
                         db.Entry(filme).State = EntityState.Modified;
                         db.SaveChanges();

@@ -10,7 +10,10 @@
         <h3>@ViewBag.Title</h3>
         <ol class="breadcrumb">
             <li>
-                <a href="@Url.Action("Index", "Sessoes")">Sessões</a>
+                <a href="@Url.Action("Index", "Filmes")">Filmes</a>
+            </li>
+            <li>
+                <a href="@Url.Action("Index", "Filmes")">Filmes</a>
             </li>
             <li class="active">
                 <strong>@ViewBag.Title</strong>
@@ -24,58 +27,63 @@
 {
     @Html.AntiForgeryToken()
 
-<div class="form-horizontal">
+    <div class="form-horizontal">
 
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    @Html.HiddenFor(model => model.ImagemID)
-    @Html.HiddenFor(model => model.FilmeID)
-    @Html.HiddenFor(model => model.Imagem)
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.ImagemID)
+        @Html.HiddenFor(model => model.FilmeID)
+        @Html.HiddenFor(model => model.Imagem)
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Titulo, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Titulo, new { htmlAttributes = new { @class = "form-control", maxlength = 50 } })
-            @Html.ValidationMessageFor(model => model.Titulo, "", new { @class = "text-danger" })
-        </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Descricao, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.TextAreaFor(model => model.Descricao, new { htmlAttributes = new { @class = "form-control", maxlength = 200 } })
-            @Html.ValidationMessageFor(model => model.Descricao, "", new { @class = "text-danger" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.Duracao, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Duracao, new { htmlAttributes = new { @class = "form-control", @type = "time" } })
-            @Html.ValidationMessageFor(model => model.Duracao, "", new { @class = "text-danger" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.Label("Imagem Atual", "ImagemAtual", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @if (!string.IsNullOrWhiteSpace(base64String))
-            {
-                <img src="@String.Format("data:image/png;base64,{0}", base64String)" alt="@Model.Titulo" style="width: 20%" />
-            }
-        </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.UploadedFile, new { @class = "control-label col-md-2" })
-        <div class="col-md-8">
-            @Html.TextBoxFor(model => model.UploadedFile, new { @class = "form-control", @type = "file", @accept = ".jpg,.jpeg,.png,.JPEG,.JPG,.PNG" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Titulo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Titulo, new { htmlAttributes = new { @class = "form-control", @maxlength = "50" } })
+                @Html.ValidationMessageFor(model => model.Titulo, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Save" class="btn btn-default" />
+        <div class="form-group">
+            @Html.LabelFor(model => model.Descricao, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.Descricao, new { @class = "form-control", @maxlength = "200", @placeholder = "Descreva aqui", id = nameof(Model.Descricao) })
+                @Html.ValidationMessageFor(model => model.Descricao, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Duracao, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Duracao, new { htmlAttributes = new { @class = "form-control", @type = "time" } })
+                @Html.ValidationMessageFor(model => model.Duracao, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <fieldset>
+            <div class="form-group">
+                @Html.Label("Imagem Atual", "ImagemAtual", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @if (!string.IsNullOrWhiteSpace(base64String))
+                    {
+                        <img src="@String.Format("data:image/png;base64,{0}", base64String)" alt="@Model.Titulo" style="width: 20%" />
+                    }
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.UploadedFile, new { @class = "control-label col-md-2" })
+                <div class="col-md-8">
+                    @Html.TextBoxFor(model => model.UploadedFile, new { @class = "form-control", @type = "file", @accept = ".jpg,.jpeg,.png,.JPEG,.JPG,.PNG" })
+                </div>
+            </div>
+        </fieldset>
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
         </div>
     </div>
-</div>
 }
 
 <div>
@@ -83,5 +91,18 @@
 </div>
 
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")    
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+
+        $(function () {
+           $('#@nameof(Model.Descricao)').keypress(function () {
+            if (this.value.length >= 200)
+                return false;
+        });
+        });
+
+        
+    </script>
+   
 }
