@@ -25,58 +25,61 @@
 {
     @Html.AntiForgeryToken()
 
-<div class="form-horizontal">  
-  
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Titulo, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Titulo, new { htmlAttributes = new { @class = "form-control", @maxlength = "50", id = nameof(Model.Titulo) } })
-            @Html.ValidationMessageFor(model => model.Titulo, "", new { @class = "text-danger" })
+
+    <div class="form-horizontal">
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+       
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Titulo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Titulo, new { htmlAttributes = new { @class = "form-control", @maxlength = "50", id = nameof(Model.Titulo) } })
+                @Html.ValidationMessageFor(model => model.Titulo, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Descricao, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">            
-            @Html.TextAreaFor(model => model.Descricao, new { @class = "form-control", @maxlength = "200", @placeholder = "Descreva aqui", id = nameof(Model.Descricao) })
-            @Html.ValidationMessageFor(model => model.Descricao, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Descricao, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.Descricao, new { @class = "form-control", @maxlength = "200", @placeholder = "Descreva aqui", id = nameof(Model.Descricao) })
+                @Html.ValidationMessageFor(model => model.Descricao, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Duracao, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Duracao, new { htmlAttributes = new { @class = "form-control", @type = "time", id = nameof(Model.Duracao) } })
-            @Html.ValidationMessageFor(model => model.Duracao, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Duracao, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Duracao, new { htmlAttributes = new { @class = "form-control", @type = "time", id = nameof(Model.Duracao) } })
+                @Html.ValidationMessageFor(model => model.Duracao, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.uploadFile, new { @class = "control-label col-md-2" })
-        <div class="col-md-8">
-            @Html.TextBoxFor(model => model.uploadFile, new { @class = "form-control", @type = "file", @accept = ".jpg,.jpeg,.png,.JPEG,.JPG,.PNG" })                   
+        <div class="form-group">
+            @Html.LabelFor(model => model.uploadFile, new { @class = "control-label col-md-2" })
+            <div class="col-md-8">
+                @Html.TextBoxFor(model => model.uploadFile, new { @class = "form-control", @type = "file", @accept = ".jpg,.jpeg,.png,.JPEG,.JPG,.PNG" })
 
-            @Html.ValidationMessageFor(model => model.uploadFile, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.uploadFile, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
-  
-    <div class="form-group">
+
+        
+            
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Salvar Filme" class="btn btn-success" />
+            <div class="form-group">
+                @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-warning" })                
+                <input type="submit" value="Salvar Filme" class="btn btn-success" />
+            </div>
         </div>
     </div>
-
-</div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+    }
 
 
-}
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+
+
+    }

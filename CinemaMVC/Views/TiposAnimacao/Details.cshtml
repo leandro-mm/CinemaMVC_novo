@@ -18,10 +18,10 @@
                 <strong>@ViewBag.Title</strong>
             </li>
         </ol>
-    </div>    
+    </div>
 </div>
 <div>
-    
+
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.Descricao)
@@ -33,7 +33,24 @@
 
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.TipoAnimacaoID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<di class="text-center">
+    <div class="form-group">
+        @Html.ActionLink("Voltar", "Index", null, new { @class = "btn btn-warning" })
+        @Html.ActionLink("Editar", "Edit", "TiposAnimacao", new { id = Model.TipoAnimacaoID }, new { @class = "btn btn-primary" })
+        <button onclick="ptint()" class="btn btn-info">Imprimir</button>
+    </div>
+</di>
+
+@section Scripts {
+
+    <script>
+
+        function ptint() {
+            Swal.fire({
+                icon: 'info',
+                title: 'Aviso',
+                text: 'Não Implementado'
+            })
+        }
+    </script>
+}

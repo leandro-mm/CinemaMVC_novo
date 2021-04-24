@@ -15,12 +15,12 @@
 
     <div id="wrapper">
 
-       
+
 
         <!-- Navigation -->
         @Html.Partial("_Navigation")
 
-         @*Page wraper*@ 
+        @*Page wraper*@
         <div class="body-content">
             <!-- Top Navbar -->
             @Html.Partial("_LoginPartial")
@@ -41,7 +41,8 @@
     @Scripts.Render("~/bundles/jqueryui")
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/jqueryunobtrusiveajax")
-    @Scripts.Render("~/bundles/bootstrap-chosen")    
+    @Scripts.Render("~/bundles/bootstrap-chosen")
+    @Scripts.Render("~/bundles/sweetalert")
     @RenderSection("scripts", required: false)
 
 

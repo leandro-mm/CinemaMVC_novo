@@ -89,9 +89,10 @@
     </div>
 
 
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input id="btnSalvar" type="submit" value="Create" class="btn btn-default" />
+    <div class="col-md-offset-2 col-md-10">
+        <div class="form-group">
+            @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-warning" })
+            <input type="submit" value="Salvar" class="btn btn-success" />
         </div>
     </div>
 </div>
@@ -106,17 +107,16 @@
 
     <script type="text/javascript">
         $(function () {
-            $('.datepick').datetimepicker({
-                format: 'L',
-                ignoreReadonly: true
-            });            
+            //$('.datepick').datetimepicker({
+            //    format: 'L',
+            //    ignoreReadonly: true
+            //});            
         });
        
         
         function ddListSalaAudioAnimChange()
         {
-            try {
-                console.log('SalaAudioAnimacaoID '+ $("#@nameof(Model.SalaAudioAnimacaoID)").val());
+            try {               
                 GetDadosHorario();
 
             } catch (e) {
@@ -130,8 +130,7 @@
 
         function ddListFilmeChange()
         {           
-            try {
-                console.log('FilmeID '+ $("#@nameof(Model.FilmeID)").val());
+            try {                
                 GetDadosHorario();
 
             } catch (e) {
@@ -146,7 +145,7 @@
         function onChangeHoraInicio()
         {
             try {
-                console.log('HorarioInicio '+ $("#@nameof(Model.HorarioInicio)").val());
+                
                 GetDadosHorario();
 
             } catch (e) {
@@ -162,7 +161,7 @@
 
         function onChangeData() {
             try {
-                console.log('Data '+ $("#@nameof(Model.Data)").val());
+                
                 GetDadosHorario();
 
             } catch (e) {

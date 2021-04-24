@@ -19,7 +19,7 @@
             </li>
         </ol>
     </div>
-   
+
 </div>
 
 <div>
@@ -36,7 +36,24 @@
 
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.TipoAudioID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<div class="text-center">
+    <div class="form-group">
+        @Html.ActionLink("Voltar", "Index", null, new { @class = "btn btn-warning" })
+        @Html.ActionLink("Editar", "Edit", "TiposAudio", new { id = Model.TipoAudioID }, new { @class = "btn btn-primary" })
+        <button onclick="ptint()" class="btn btn-info">Imprimir</button>
+    </div>
+</div>
+
+@section Scripts {
+
+    <script>
+
+        function ptint() {
+            Swal.fire({
+                icon: 'info',
+                title: 'Aviso',
+                text: 'Não Implementado'
+            })
+        }
+    </script>
+}

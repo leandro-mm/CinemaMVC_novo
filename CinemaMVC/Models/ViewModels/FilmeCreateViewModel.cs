@@ -21,7 +21,9 @@ namespace CinemaMVC.Models
         [Required]
         [Display(Name = "Duração")]
         public TimeSpan? Duracao { get; set; }
+
         [Required]
+        [Display(Name = "Imagem")]
         public HttpPostedFileBase uploadFile { get; set; }
          
     }
