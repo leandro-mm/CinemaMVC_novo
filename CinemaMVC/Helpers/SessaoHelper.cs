@@ -98,9 +98,9 @@ namespace CinemaMVC.Helpers
         /// </summary>
         /// <param name="SalaID"></param>       
         /// <returns>lista contendo sessões vinculadas a sala</returns>
-        public static List<string> GetSessoesBySalaID(int? SalaID)
+        public static List<Sessao> GetSessoesBySalaID(int? SalaID)
         {
-            List<string> result = new List<string>();
+            List<Sessao> result = new List<Sessao>();
 
             try
             {
@@ -119,10 +119,7 @@ namespace CinemaMVC.Helpers
 
                                 if (sessaoList != null && sessaoList.Any())
                                 {
-                                    foreach (var sessao in sessaoList.OrderBy(d => d.Data).ThenBy(h=>h.HorarioInicio))
-                                    {
-                                        result.Add(sessao.Data.ToShortDateString() + " das " + sessao.HorarioInicio + " às " + sessao.HorarioFim);
-                                    }
+                                    result = sessaoList.ToList();
 
                                 }
 
@@ -138,9 +135,9 @@ namespace CinemaMVC.Helpers
             return result;
         }//end method
 
-        public static List<string> GetSessoesByFilmeID(int? FilmeID)
+        public static List<Sessao> GetSessoesByFilmeID(int? FilmeID)
         {
-            List<string> result = new List<string>();
+            List<Sessao> result = new List<Sessao>();
 
             try
             {
@@ -152,10 +149,7 @@ namespace CinemaMVC.Helpers
 
                         if (sessaoList != null && sessaoList.Any())
                         {
-                            foreach (var sessao in sessaoList.OrderBy(d => d.Data).ThenBy(h => h.HorarioInicio))
-                            {
-                                result.Add(sessao.Data.ToShortDateString() + " das " + sessao.HorarioInicio + " às " + sessao.HorarioFim);
-                            }
+                            result = sessaoList.ToList();
                         }
 
                     }

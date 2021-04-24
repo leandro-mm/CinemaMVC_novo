@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Detalhes da Sessão";
+    var dataSessao = Model != null ? Model.Data.ToShortDateString() : string.Empty;
 }
 
 <div class="row">
@@ -26,75 +27,90 @@
     </div>
 </div>
 
-<div>
 
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Data)
-        </dt>
+<div class="form-horizontal">
+    <div class="col-md-offset-2 row">
 
-        <dd>
-            @Html.DisplayFor(model => model.Data)
-        </dd>
+        <div class="form-group">
+            @Html.Label("Data", "Data Sessão", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => dataSessao, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+            </div>
+        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.HorarioInicio)
-        </dt>
+        <div class="form-group">
+            @Html.Label("HorarioInicio", "Horário Inicio", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.HorarioInicio, new { @class = "form-control", @disabled = "disabled" })
+            </div>
+        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.HorarioInicio)
-        </dd>
+        <div class="form-group">
+            @Html.Label("HorarioFim", "Horário Fim", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.HorarioFim, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+            </div>
+        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.HorarioFim)
-        </dt>
+        <div class="form-group">
+            @Html.Label("filmes", "Filme", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @if (Model.Filme != null)
+                {
+                    <a href="@Url.Action("Details","Filmes",new {id=Model.Filme.FilmeID})">@Model.Filme.Titulo</a>
+                }
 
-        <dd>
-            @Html.DisplayFor(model => model.HorarioFim)
-        </dd>
+            </div>
+        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ValorIngresso)
-        </dt>
+        <div class="form-group">
+            @Html.Label("sala", "Sala", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @if (Model.SalaAudioAnimacao != null)
+                {
+                    <a href="@Url.Action("Details","Salas",new {id=Model.SalaAudioAnimacao.SalaID})">@Model.SalaAudioAnimacao.Sala.Nome</a>
+                }
 
-        <dd>
-            @Html.DisplayFor(model => model.ValorIngresso)
-        </dd>
+            </div>
+        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Filme.Titulo)
-        </dt>
+        <div class="form-group">
+            @Html.Label("Audio", "Áudio", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @if (Model.SalaAudioAnimacao != null)
+                {
+                    <a href="@Url.Action("Details","TiposAudio",new {id=Model.SalaAudioAnimacao.TipoAudioID})">@Model.SalaAudioAnimacao.TipoAudio.Descricao</a>
+                }
 
-        <dd>
-            @Html.DisplayFor(model => model.Filme.Titulo)
-        </dd>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Animacao", "Animação", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @if (Model.SalaAudioAnimacao != null)
+                {
+                    <a href="@Url.Action("Details","TiposAnimacao",new {id=Model.SalaAudioAnimacao.TipoAnimacaoID})">@Model.SalaAudioAnimacao.TipoAnimacao.Descricao</a>
+                }
+
+            </div>
+        </div>
 
 
-        <dt>
-            Animação
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SalaAudioAnimacao.TipoAnimacao.Descricao)
-        </dd>
-
-        <dt>
-            Áudio
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SalaAudioAnimacao.TipoAudio.Descricao)
-        </dd>
-
-    </dl>
-</div>
-<div class="text-center">
-    <div class="form-group">
-        @Html.ActionLink("Voltar", "Index", null, new { @class = "btn btn-warning" })
-        @Html.ActionLink("Editar", "Edit", "Sessoes", new { id = Model.SessaoID }, new { @class = "btn btn-primary" })
-        <button onclick="ptint()" class="btn btn-info">Imprimir</button>
     </div>
+
+    <div class="text-center">
+        <div class="form-group">
+
+            @Html.ActionLink("Voltar", "Index", null, new { @class = "btn btn-warning" })
+            @Html.ActionLink("Editar", "Edit", "Filmes", new { id = Model.FilmeID }, new { @class = "btn btn-primary" })
+            <button onclick="ptint()" class="btn btn-info">Imprimir</button>
+        </div>
+
+    </div>
+
 </div>
+
 @section Scripts {
 
     <script>

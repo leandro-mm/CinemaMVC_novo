@@ -8,32 +8,60 @@ namespace CinemaMVC.Helpers
 {
     public static class SalaHelper
     {
-        public static List<string> GetTipoAudioAnimacao(Sala obj)
+        public static List<TipoAnimacao> GetTipoAnimacaoBySalaID(int? SalaID)
         {
-            List<string> result = new List<string>();
+            List<TipoAnimacao> result = new List<TipoAnimacao>();
 
-            if (obj != null)
+            if (SalaID.HasValue)
             {
                 using (CinemaEntities db = new CinemaEntities())
                 {
                     var salauAudioAnim = db.SalaAudioAnimacao
-                        .Where(s => s.SalaID == obj.SalaID);
+                        .Where(s => s.SalaID == SalaID);
+
+                    if (salauAudioAnim != null && salauAudioAnim.Any())
+                    {
+                        foreach (var item in salauAudioAnim)
+                        {
+                            var tipoAnimacaoList = db.TipoAnimacao
+                            .Where(t => t.TipoAnimacaoID == item.TipoAnimacaoID);
+
+                            if (tipoAnimacaoList != null && tipoAnimacaoList.Any())
+                            {
+                                result = tipoAnimacaoList.ToList();
+                            }
+
+                        }
+                    }
+                }
+            }
+
+            return result;
+        }//end method
+
+        public static List<TipoAudio> GetTipoAudioBySalaID(int? SalaID)
+        {
+            List<TipoAudio> result = new List<TipoAudio>();
+
+            if (SalaID.HasValue)
+            {
+                using (CinemaEntities db = new CinemaEntities())
+                {
+                    var salauAudioAnim = db.SalaAudioAnimacao
+                        .Where(s => s.SalaID == SalaID);
 
                     if(salauAudioAnim != null && salauAudioAnim.Any())
                     {
                         foreach (var item in salauAudioAnim)
                         {
-                            var tipoAnimacao = db.TipoAnimacao
-                            .Where(t => t.TipoAnimacaoID == item.TipoAnimacaoID)
-                            .FirstOrDefault();
+                            var tipoAudioList = db.TipoAudio
+                            .Where(t => t.TipoAudioID == item.TipoAudioID);
 
-                            var tipoAudio = db.TipoAudio 
-                            .Where(t => t.TipoAudioID == item.TipoAudioID)
-                            .FirstOrDefault();
+                            if(tipoAudioList != null && tipoAudioList.Any())
+                            {
+                                result = tipoAudioList.ToList();
+                            }
 
-                            var DescricaoAnimacao = tipoAnimacao != null ? tipoAnimacao.Descricao : string.Empty;
-                            var DescricaoAudio = tipoAudio != null ? tipoAudio.Descricao : string.Empty;
-                            result.Add(DescricaoAudio + " | " + DescricaoAnimacao);                           
                         }
                     }
                 }

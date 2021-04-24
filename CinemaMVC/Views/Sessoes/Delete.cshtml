@@ -2,6 +2,8 @@
 
 @{
     ViewBag.Title = "Deletar Sessão";
+    var dataSessao = Model != null ? Model.Data.ToShortDateString() : string.Empty;
+}
 }
 
 <div class="row">
@@ -27,55 +29,75 @@
 
 
 <div class="form-horizontal">
-    <div class="form-group">
-        @Html.Label("Data", "Data", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Data, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
-        </div>
-    </div>
+    <div class="col-md-offset-2 row">
 
-    <div class="form-group">
-        @Html.Label("HorarioInicio", "Horário Inicio", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.TextAreaFor(model => model.HorarioInicio, new { @class = "form-control", @disabled = "disabled" })
+        <div class="form-group">
+            @Html.Label("Data", "Data Sessão", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => dataSessao, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.Label("HorarioFim", "Horário Fim", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.TextAreaFor(model => model.HorarioFim, new { @class = "form-control", @disabled = "disabled" })
+        <div class="form-group">
+            @Html.Label("HorarioInicio", "Horário Inicio", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.HorarioInicio, new { @class = "form-control", @disabled = "disabled" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.Label("ValorIngresso", "Valor Ingresso", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.TextAreaFor(model => model.ValorIngresso, new { @class = "form-control", @disabled = "disabled" })
+        <div class="form-group">
+            @Html.Label("HorarioFim", "Horário Fim", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.HorarioFim, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.Label("Filme", "Filme", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.TextAreaFor(model => model.Filme.Titulo, new { @class = "form-control", @disabled = "disabled" })
+        <div class="form-group">
+            @Html.Label("filmes", "Filme", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @if (Model.Filme != null)
+                {
+                    <a href="@Url.Action("Details","Filmes",new {id=Model.Filme.FilmeID})">@Model.Filme.Titulo</a>
+                }
+
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.Label("Animacao", "Animação", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.TextAreaFor(model => model.SalaAudioAnimacao.TipoAnimacao.Descricao, new { @class = "form-control", @disabled = "disabled" })
+        <div class="form-group">
+            @Html.Label("sala", "Sala", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @if (Model.SalaAudioAnimacao != null)
+                {
+                    <a href="@Url.Action("Details","Salas",new {id=Model.SalaAudioAnimacao.SalaID})">@Model.SalaAudioAnimacao.Sala.Nome</a>
+                }
+
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.Label("Audio", "Áudio", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.TextAreaFor(model => model.SalaAudioAnimacao.TipoAudio.Descricao, new { @class = "form-control", @disabled = "disabled" })
+        <div class="form-group">
+            @Html.Label("Audio", "Áudio", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @if (Model.SalaAudioAnimacao != null)
+                {
+                    <a href="@Url.Action("Details","TiposAudio",new {id=Model.SalaAudioAnimacao.TipoAudioID})">@Model.SalaAudioAnimacao.TipoAudio.Descricao</a>
+                }
+
+            </div>
         </div>
-    </div>
 
+        <div class="form-group">
+            @Html.Label("Animacao", "Animação", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @if (Model.SalaAudioAnimacao != null)
+                {
+                    <a href="@Url.Action("Details","TiposAnimacao",new {id=Model.SalaAudioAnimacao.TipoAnimacaoID})">@Model.SalaAudioAnimacao.TipoAnimacao.Descricao</a>
+                }
+
+            </div>
+        </div>
+
+
+    </div>
 
 
     @using (Html.BeginForm())
