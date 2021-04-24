@@ -3,8 +3,6 @@
 @{
     ViewBag.Title = "Lista de Filmes";
 }
-
-
 <div class="row">
     <div class="col-sm-6">
         <h3>@ViewBag.Title</h3>
@@ -16,9 +14,8 @@
                 <strong>@ViewBag.Title</strong>
             </li>
         </ol>
-    </div>   
+    </div>
 </div>
-
 
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="row">
@@ -42,7 +39,7 @@
 
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                @Html.LabelFor(model => model.FilmeID)                                        
+                                                @Html.LabelFor(model => model.FilmeID)
                                                 @Html.DropDownListFor(model => model.FilmeID, Model.FilmeSelectLIst, "Selecione...", htmlAttributes: new { @class = "col-md-10", id = nameof(Model.FilmeID) })
                                             </div>
 
@@ -85,13 +82,16 @@
         </div>
     </div>
 </div>
-@section Scripts {   
+
+
+
+@section Scripts {
 
     <script>
-        $(document).ready(function ()   
-        {  
+        $(document).ready(function ()
+        {
             //Bootstrap Style Dropdown Plugin
-            $('#@nameof(Model.FilmeID)').chosen();           
+            $('#@nameof(Model.FilmeID)').chosen();
         });
     </script>
 }

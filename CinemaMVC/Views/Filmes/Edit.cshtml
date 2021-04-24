@@ -64,7 +64,7 @@
             <div class="col-md-10">
                 @if (!string.IsNullOrWhiteSpace(base64String))
                 {
-                    <img src="@String.Format("data:image/png;base64,{0}", base64String)" alt="@Model.Titulo" style="width: 20%" />
+                    <img src="@String.Format("data:image/png;base64,{0}", base64String)" alt="@Model.Titulo" style="width: 20%;border:solid" />
                 }
             </div>
         </div>
@@ -78,15 +78,19 @@
     </fieldset>
 
 
-    <div class="col-md-offset-2 col-md-10">
-        <div class="form-group">
+    
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
             @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-warning" })
             <input type="submit" value="Salvar" class="btn btn-success" />
         </div>
+        
     </div>
+       
 
 
 </div>
+    
 }
 
 

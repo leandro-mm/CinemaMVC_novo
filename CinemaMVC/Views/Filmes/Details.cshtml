@@ -5,6 +5,7 @@
     string base64String = Model.ImagemFilme != null ? Convert.ToBase64String(Model.ImagemFilme.Imagem) : String.Empty;
 }
 
+
 <div class="row">
     <div class="col-sm-6">
         <h3>@ViewBag.Title</h3>
@@ -22,68 +23,87 @@
     </div>
 </div>
 
-<div>
 
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Titulo)
-        </dt>
+<div class="form-horizontal">
+    <div class="col-md-offset-2 row">
 
-        <dd>
-            @Html.DisplayFor(model => model.Titulo)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Descricao)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Descricao)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Duracao)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Duracao)
-        </dd>
-
-        <dt>
-            Imagem
-        </dt>
-
-        <dd>
-            @if (!string.IsNullOrWhiteSpace(base64String))
-            {
-                <img src="@String.Format("data:image/png;base64,{0}", base64String)" alt="@Model.Titulo" style="width: 20%" />
-            }
-        </dd>
+        <div class="form-group">
+            @Html.Label("Imagem", "Imagem", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @if (!string.IsNullOrWhiteSpace(base64String))
+                {
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-content">
+                            <img src="@String.Format("data:image/png;base64,{0}", base64String)" alt="@Model.Titulo" style="width: 25%;border:solid" />
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
 
 
-    </dl>
-</div>
 
-<div class="text-center">
-    <div class="form-group">
-        @Html.ActionLink("Voltar", "Index", null, new { @class = "btn btn-warning" })        
-        @Html.ActionLink("Editar", "Edit", "Filmes", new { id = Model.FilmeID },new{ @class = "btn btn-primary" })        
-        <button onclick="ptint()" class="btn btn-info">Imprimir</button>
+        <div class="form-group">
+            @Html.Label("Titulo", "Título", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Titulo, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Descricao", "Descrição", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.Descricao, new { @class = "form-control", @disabled = "disabled" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Duracao", "Duração", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Duracao, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("sessoes", "Sessões Vinculadas", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <fieldset>
+                    @foreach (var item in CinemaMVC.Helpers.SessaoHelper.GetSessoesByFilmeID(Model.FilmeID))
+                    {
+                        <span>@item</span>
+                        <br />
+                    }
+                </fieldset>
+            </div>
+        </div>
     </div>
+   
+    <div class="text-center">
+        <div class="form-group">
+
+            @Html.ActionLink("Voltar", "Index", null, new { @class = "btn btn-warning" })
+            @Html.ActionLink("Editar", "Edit", "Filmes", new { id = Model.FilmeID }, new { @class = "btn btn-primary" })
+            <button onclick="ptint()" class="btn btn-info">Imprimir</button>
+        </div>
+
+    </div>
+
 </div>
 
-@section Scripts {
-    
-    <script>
-
-        function ptint() {
-            Swal.fire({
-                icon: 'info',
-                title: 'Aviso',
-                text: 'Não Implementado'
-            })
-        }
-    </script>
 
 
-}
+    @section Scripts {
+
+        <script>
+
+            function ptint() {
+                Swal.fire({
+                    icon: 'info',
+                    title: 'Aviso',
+                    text: 'Não Implementado'
+                })
+            }
+        </script>
+
+
+    }

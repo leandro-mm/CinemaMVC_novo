@@ -20,26 +20,40 @@
         </ol>
     </div>
 </div>
-<div>
 
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Descricao)
-        </dt>
+<div class="form-horizontal">
 
-        <dd>
-            @Html.DisplayFor(model => model.Descricao)
-        </dd>
 
-    </dl>
-</div>
-<di class="text-center">
     <div class="form-group">
-        @Html.ActionLink("Voltar", "Index", null, new { @class = "btn btn-warning" })
-        @Html.ActionLink("Editar", "Edit", "TiposAnimacao", new { id = Model.TipoAnimacaoID }, new { @class = "btn btn-primary" })
-        <button onclick="ptint()" class="btn btn-info">Imprimir</button>
+        @Html.Label("Descricao", "Descrição", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Descricao, new { htmlAttributes = new { @class = "form-control", @maxlength = "50" } })
+        </div>
     </div>
-</di>
+
+    <div class="form-group">
+        @Html.Label("Salas", "Salas Vinculadas", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @foreach (var item in CinemaMVC.Helpers.TipoAnimacaoHelper.GetSalasByTipoAnimacaoID(Model.TipoAnimacaoID))
+            {
+                <span>@item</span>
+            }
+        </div>
+    </div>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="text-center">
+            <div class="form-group">
+                @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-warning" })
+                @Html.ActionLink("Editar", "Edit", "TiposAnimacao", new { id = Model.TipoAnimacaoID }, new { @class = "btn btn-primary" })
+                <button onclick="ptint()" class="btn btn-info">Imprimir</button>
+            </div>
+        </div>
+    }
+</div>
 
 @section Scripts {
 

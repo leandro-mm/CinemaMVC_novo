@@ -253,6 +253,8 @@
     <Compile Include="Helpers\FileExtensionsAttribute.cs" />
     <Compile Include="Helpers\HMTLHelperExtensions.cs" />
     <Compile Include="Helpers\SalaHelper.cs" />
+    <Compile Include="Helpers\TipoAudioHelper.cs" />
+    <Compile Include="Helpers\TipoAnimacaoHelper.cs" />
     <Compile Include="Helpers\SessaoHelper.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CinemaMvcModel.Context.cs">
@@ -321,6 +323,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\chosen-sprite%402x.png" />
     <Content Include="Content\chosen-sprite.png" />
+    <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\fontawesome\font-awesome.css" />
     <Content Include="Content\fontawesome\font-awesome.min.css" />
     <Content Include="Content\fonts\fontawesome-webfont.svg" />

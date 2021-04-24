@@ -22,38 +22,49 @@
 
 </div>
 
-<div>
-    <h4>TipoAudio</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Descricao)
-        </dt>
+<div class="form-horizontal">
 
-        <dd>
-            @Html.DisplayFor(model => model.Descricao)
-        </dd>
 
-    </dl>
-</div>
-<div class="text-center">
     <div class="form-group">
-        @Html.ActionLink("Voltar", "Index", null, new { @class = "btn btn-warning" })
-        @Html.ActionLink("Editar", "Edit", "TiposAudio", new { id = Model.TipoAudioID }, new { @class = "btn btn-primary" })
-        <button onclick="ptint()" class="btn btn-info">Imprimir</button>
+        @Html.Label("Descricao", "Descrição", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Descricao, new { htmlAttributes = new { @class = "form-control", @maxlength = "50" } })
+        </div>
     </div>
-</div>
 
-@section Scripts {
+    <div class="form-group">
+        @Html.Label("Salas", "Salas Vinculadas", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @foreach (var item in CinemaMVC.Helpers.TipoAudioHelper.GetSalasByTipoAudioID(Model.TipoAudioID))
+            {
+                <span>@item</span>
+            }
+        </div>
+    </div>
 
-    <script>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
 
-        function ptint() {
-            Swal.fire({
-                icon: 'info',
-                title: 'Aviso',
-                text: 'Não Implementado'
-            })
-        }
-    </script>
-}
+        <div class="text-center">
+            <div class="form-group">
+                @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-warning" })
+                <input type="submit" value="Deletar" class="btn btn-danger" />
+                <button onclick="ptint()" class="btn btn-info">Imprimir</button>
+            </div>
+        </div>
+    }
+
+    @section Scripts {
+
+        <script>
+
+            function ptint() {
+                Swal.fire({
+                    icon: 'info',
+                    title: 'Aviso',
+                    text: 'Não Implementado'
+                })
+            }
+        </script>
+    }

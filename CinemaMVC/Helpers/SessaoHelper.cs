@@ -98,35 +98,71 @@ namespace CinemaMVC.Helpers
         /// </summary>
         /// <param name="SalaID"></param>       
         /// <returns>lista contendo sessões vinculadas a sala</returns>
-        public static List<string> GetSessoesBySalaID(int SalaID)
+        public static List<string> GetSessoesBySalaID(int? SalaID)
         {
             List<string> result = new List<string>();
 
             try
             {
-                using (CinemaEntities db = new CinemaEntities())
+                if (SalaID.HasValue)
                 {
-                    var salaAudioAnimacao =
-                        db.SalaAudioAnimacao
-                        .Where(s => s.SalaID == SalaID);
-
-                    foreach (var item in salaAudioAnimacao)
+                    using (CinemaEntities db = new CinemaEntities())
                     {
-                        Sessao sessao = db.Sessao
-                           .Where(s => s.SalaAudioAnimacaoID == item.SalaAudioAnimacaoID)
-                           .FirstOrDefault();
+                        var salauAudioAnim = db.SalaAudioAnimacao
+                             .Where(s => s.SalaID == SalaID.Value);
 
-                        if(sessao != null)
+                        if (salauAudioAnim != null && salauAudioAnim.Any())
                         {
-                            string dados = sessao.Data.ToShortDateString() + " das " + sessao.HorarioInicio + " às " + sessao.HorarioFim;
-                            string dados2 = item.TipoAudio.Descricao + " | "+item.TipoAnimacao.Descricao; ;
-                            result.Add(dados+ " "+dados2);
+                            foreach (var item in salauAudioAnim)
+                            {
+                                var sessaoList = db.Sessao.Where(s => s.SalaAudioAnimacaoID == item.SalaAudioAnimacaoID);
+
+                                if (sessaoList != null && sessaoList.Any())
+                                {
+                                    foreach (var sessao in sessaoList.OrderBy(d => d.Data).ThenBy(h=>h.HorarioInicio))
+                                    {
+                                        result.Add(sessao.Data.ToShortDateString() + " das " + sessao.HorarioInicio + " às " + sessao.HorarioFim);
+                                    }
+
+                                }
+
+                            }
                         }
+
                     }
-                    
                 }
+                
             }
             catch{}
+
+            return result;
+        }//end method
+
+        public static List<string> GetSessoesByFilmeID(int? FilmeID)
+        {
+            List<string> result = new List<string>();
+
+            try
+            {
+                if (FilmeID.HasValue)
+                {
+                    using (CinemaEntities db = new CinemaEntities())
+                    {
+                        var sessaoList = db.Sessao.Where(f=>f.FilmeID == FilmeID.Value);
+
+                        if (sessaoList != null && sessaoList.Any())
+                        {
+                            foreach (var sessao in sessaoList.OrderBy(d => d.Data).ThenBy(h => h.HorarioInicio))
+                            {
+                                result.Add(sessao.Data.ToShortDateString() + " das " + sessao.HorarioInicio + " às " + sessao.HorarioFim);
+                            }
+                        }
+
+                    }
+                }
+
+            }
+            catch { }
 
             return result;
         }//end method

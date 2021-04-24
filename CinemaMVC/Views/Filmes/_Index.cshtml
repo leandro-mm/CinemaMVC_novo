@@ -7,47 +7,66 @@
 @if (Model != null && Model.Filmes != null && Model.Filmes.Count() > 0)
 {
 
-    <table class="table">
-
+<table class="table" style="table-layout:fixed">
+    <thead>
+        <tr>
+            <th width="70%">
+                Dados do Filme
+            </th>
+            <th data-type="html"></th>
+        </tr>
+    </thead>
         @foreach (var item in Model.Filmes)
         {
 
             string base64String = item.ImagemFilme != null ? Convert.ToBase64String(item.ImagemFilme.Imagem) : String.Empty;
 
-        <tr>
-            <td style="width:70%">
-                <div class="media">
-                    <a class="pull-left" href="#">
-                        @*<img class="media-object" data-src="holder.js/64x64" alt="64x64" style="width: 64px; height: 64px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAABYUlEQVR4nO2UMY6DMBBFc/+jTOfOjTt3Lt37CL6Ctxo0ICgSljyt9hdPSkI0ejwGv+ac6z/zogVoFIAWoFEAWoBGAWgBGgWgBWgUgBagUQBagEYBaAEaBaAFaBSAFqBRAFqARgFoARoFoAVobgcopSwzW2a2cs6n/zGzlVJCZz4SoLW2zGz3ubW2+0+t9S3ZJ2Y+FiDnfPmE5pxrjLE9ySibc15mtsYY203WWm/NRAK4hAv5TRwDpZR2sr33ZWbbqsdrn87EAlytq38fY5zKxve89/4rM5EAvq6+mqWU7Zo/vTNZ34Lj73dmfj1ASulU1m/uSBS+WvM7M78ewE/jeJjFdY43FUXjascD8c5MJMCc+3f5eGBdycY19ycbT/5PZmIB/joKQAvQKAAtQKMAtACNAtACNApAC9AoAC1AowC0AI0C0AI0CkAL0CgALUCjALQAjQLQAjQKQAvQKAAtQPMDzp4gucW+rqcAAAAASUVORK5CYII=">*@
+    <tr>
+        <td>
+
+
+
+            <div class="media">
+                <a class="pull-left" href="@Url.Action("Details","Filmes",new {id= item.FilmeID})">
+
+                    @if (string.IsNullOrWhiteSpace(base64String))
+                    {
+                        <img class="media-object" data-src="holder.js/64x64" alt="64x64" style="width: 64px; height: 64px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAABYUlEQVR4nO2UMY6DMBBFc/+jTOfOjTt3Lt37CL6Ctxo0ICgSljyt9hdPSkI0ejwGv+ac6z/zogVoFIAWoFEAWoBGAWgBGgWgBWgUgBagUQBagEYBaAEaBaAFaBSAFqBRAFqARgFoARoFoAVobgcopSwzW2a2cs6n/zGzlVJCZz4SoLW2zGz3ubW2+0+t9S3ZJ2Y+FiDnfPmE5pxrjLE9ySibc15mtsYY203WWm/NRAK4hAv5TRwDpZR2sr33ZWbbqsdrn87EAlytq38fY5zKxve89/4rM5EAvq6+mqWU7Zo/vTNZ34Lj73dmfj1ASulU1m/uSBS+WvM7M78ewE/jeJjFdY43FUXjascD8c5MJMCc+3f5eGBdycY19ycbT/5PZmIB/joKQAvQKAAtQKMAtACNAtACNApAC9AoAC1AowC0AI0C0AI0CkAL0CgALUCjALQAjQLQAjQKQAvQKAAtQPMDzp4gucW+rqcAAAAASUVORK5CYII=">
+                    }
+                    else
+                    {
                         <img class="media-object" src="@String.Format("data:image/png;base64,{0}", base64String)" alt="@item.Titulo" style="width: 64px; height: 64px;" />
-                    </a>
-                    <div class="media-body">
-                        <h4 class="media-heading">@Html.DisplayFor(modelItem => item.Titulo)</h4>
-                        @Html.DisplayFor(modelItem => item.Descricao)
-                        <p><b>@Html.DisplayFor(modelItem => item.Duracao) hrs</b></p>
-                    </div>
+                    }
+                </a>
+                <div class="media-body">
+                    <h4 class="media-heading">@Html.DisplayFor(modelItem => item.Titulo)</h4>
+                    @Html.DisplayFor(modelItem => item.Descricao)
+
+                    <p><b>@Html.DisplayFor(modelItem => item.Duracao) hrs</b></p>
                 </div>
+            </div>
 
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.FilmeID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.FilmeID })
+        </td>
+        <td>
+            @Html.ActionLink(" ", "Edit", new { id = item.FilmeID }, new { @class = "btn btn-primary btn-circle fa fa-pencil-square-o", @data_toggle = "tooltip", @data_placement = "top", @title = "Alterar" })
+            @Html.ActionLink(" ", "Details", new { id = item.FilmeID }, new { @class = "btn btn-primary btn-circle fa fa-eye", @data_toggle = "tooltip", @data_placement = "top", @title = "Visualizar" })
 
-                @if (item.Sessao == null || item.Sessao.Count() == 0)
-                {
-                    <span>|</span> @Html.ActionLink("Delete", "Delete", new { id = item.FilmeID })
-                }
-                else
-                {
-                    <span style="color:grey">| Delete </span> 
-                }
-            </td>
+            @if (item.Sessao == null || item.Sessao.Count() == 0)
+            {
+                @Html.ActionLink(" ", "Delete", new { id = item.FilmeID }, new { @class = "btn btn-danger btn-circle fa fa-trash-o", @data_toggle = "tooltip", @data_placement = "top", @title = "Deletar" })
+            }
+            else
+            {
+                <button class = "btn btn-danger btn-circle fa fa-trash-o" disabled="disabled"></button>
+                
+            }
+        </td>
 
-           
-        </tr>
+
+    </tr>
         }
 
-    </table>
+</table>
     if (Model.GetPaginatedFilmes() != null && Model.GetPaginatedFilmes().Any())
     {
         <div style="float: right">
@@ -62,15 +81,12 @@
                 }
             </ul>
         </div>
-
     }
 }
 else
 { 
     <div class="w3-container w3-pale-blue w3-leftbar w3-border-blue">
-            
         <p style="text-align:left">Nenhum Resultado</p>
-
     </div>
 
 }
