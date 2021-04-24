@@ -15,13 +15,14 @@ namespace CinemaMVC.Controllers
     public class FilmesController : Controller
     {
         private CinemaEntities db = new CinemaEntities();
+        private readonly int FilmePerPageSetting = 3;
 
         // GET: Filmes
         public ActionResult Index(int page = 1)
         {
             var ViewModel = new FilmeIndexViewModel
             {
-                FilmePerPage = 3,
+                FilmePerPage = FilmePerPageSetting,
                 Filmes = db.Filme.OrderBy(d => d.Titulo),
                 FilmeSelectLIst = new SelectList(db.Filme, "FilmeID", "Titulo"),               
                 CurrentPage = page
@@ -34,7 +35,8 @@ namespace CinemaMVC.Controllers
         public ActionResult Index(FilmeIndexViewModel ViewModel)
         {
             ViewModel.Filmes = db.Filme.Where(f=> f.FilmeID == (ViewModel.FilmeID ?? f.FilmeID));            
-            ViewModel.FilmeSelectLIst = new SelectList(db.Filme, "FilmeID", "Titulo", ViewModel.FilmeID ?? ViewModel.FilmeID);   
+            ViewModel.FilmeSelectLIst = new SelectList(db.Filme, "FilmeID", "Titulo", ViewModel.FilmeID ?? ViewModel.FilmeID);
+            ViewModel.FilmePerPage = FilmePerPageSetting;
             return PartialView("_Index", ViewModel);
         }
 

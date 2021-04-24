@@ -34,6 +34,9 @@
                             <div class="panel-body">
                                 <div class="form-group">
 
+                                    @Html.HiddenFor(model=> model.FilmePerPage)
+                                    @Html.HiddenFor(model=>model.CurrentPage)
+
                                     @using (Ajax.BeginForm("Index", "Filmes", new AjaxOptions { HttpMethod = "Post", UpdateTargetId = "ajaxUpdateTarget" }))
                                     {
 
