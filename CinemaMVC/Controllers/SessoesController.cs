@@ -247,8 +247,7 @@ namespace CinemaMVC.Controllers
                     throw new Exception("Não foi possível calcular a hora final da sessão");
                 var filme = db.Filme.Where(f => f.FilmeID == filmeID.Value).FirstOrDefault();
                 if (filme == null)
-                    throw new Exception("Não foi possível calcular a hora final da sessão");
-                if(horarioInicio.Value.Add(filme.Duracao) > )
+                    throw new Exception("Não foi possível calcular a hora final da sessão");                
                 return horarioInicio.Value.Add(filme.Duracao);
             }
             catch (Exception ex)
