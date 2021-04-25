@@ -206,10 +206,7 @@ namespace CinemaMVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
-            if (!Request.IsAuthenticated)
-                return RedirectToAction("Login", "Account", new { returnUrl = Url.Action("Delete", "Filmes", new { id }) });
-
+         
             Filme filme = db.Filme.Find(id);
             if (filme == null)
             {
