@@ -13,7 +13,8 @@ namespace CinemaMVC.Controllers
     [Authorize]
     public class SessoesController : Controller
     {
-        private CinemaEntities db = new CinemaEntities();
+        //private CinemaEntities db = new CinemaEntities();
+        private Database1Entities db = new Database1Entities();
 
         // GET: Sessoes
         public ActionResult Index()

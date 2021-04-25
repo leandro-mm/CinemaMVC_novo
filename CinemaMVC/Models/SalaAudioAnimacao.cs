@@ -27,8 +27,8 @@ namespace CinemaMVC.Models
     
         public virtual Sala Sala { get; set; }
         public virtual TipoAudio TipoAudio { get; set; }
-        public virtual TipoAnimacao TipoAnimacao { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Sessao> Sessao { get; set; }
+        public virtual TipoAnimacao TipoAnimacao { get; set; }
     }
 }

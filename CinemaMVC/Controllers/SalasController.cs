@@ -13,7 +13,8 @@ namespace CinemaMVC.Controllers
     [Authorize]
     public class SalasController : Controller
     {
-        private CinemaEntities db = new CinemaEntities();
+        //private CinemaEntities db = new CinemaEntities();
+        private Database1Entities db = new Database1Entities();
 
         // GET: Salas
         public ActionResult Index()

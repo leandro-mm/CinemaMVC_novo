@@ -13,8 +13,8 @@ namespace CinemaMVC.Controllers
     [Authorize]
     public class TiposAnimacaoController : Controller
     {
-        private CinemaEntities db = new CinemaEntities();
-
+        //private CinemaEntities db = new CinemaEntities();
+        private Database1Entities db = new Database1Entities();
         // GET: TiposAnimacao
         public ActionResult Index()
         {

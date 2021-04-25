@@ -14,7 +14,9 @@ namespace CinemaMVC.Controllers
     [Authorize]
     public class FilmesController : Controller
     {
-        private CinemaEntities db = new CinemaEntities();
+        //private CinemaEntities db = new CinemaEntities();
+        private Database1Entities db = new Database1Entities();
+        
         private readonly int FilmePerPageSetting = 3;
 
         // GET: Filmes
