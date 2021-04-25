@@ -283,11 +283,12 @@ namespace CinemaMVC.Controllers
                             DateTime dateValue;
                             if (DateTime.TryParse(DataSessao, out dateValue))
                             {
-                                errorMessage = VerificarConflitoHorario(SalaAudioAnimacaoID.Value, dateValue, timeSpanHoraInicio, timeSpanHoraFinal) ?
-                                "O horário conflitou com sessão já existente" : string.Empty;
+                                if(VerificarConflitoHorario(SalaAudioAnimacaoID.Value, dateValue, timeSpanHoraInicio, timeSpanHoraFinal))
+                                {
+                                    errorMessage = GetDadosConflitoHorario(SalaAudioAnimacaoID.Value, dateValue, timeSpanHoraInicio, timeSpanHoraFinal);
+                                }                                
                             }
                         }
-
                     }
                 }
 
@@ -343,6 +344,36 @@ namespace CinemaMVC.Controllers
 
             return result;
             
+        }//end method
+
+        private string GetDadosConflitoHorario(int SalaAudioAnimacaoID, DateTime dataSessao, TimeSpan timeSpanHoraInicio, TimeSpan timeSpanHoraFinal)
+        {
+            try
+            {
+                var sala = db.SalaAudioAnimacao
+                            .Where(s => s.SalaAudioAnimacaoID == SalaAudioAnimacaoID)
+                            .FirstOrDefault();
+
+                if (sala != null)
+                {
+                    //--verifica as sessões cadastradas para a sala
+                    foreach (var sessao in sala.Sessao.Where(sessao => sessao.Data == dataSessao))
+                    {
+                        if ((timeSpanHoraInicio >= sessao.HorarioInicio && timeSpanHoraInicio <= sessao.HorarioFim) ||
+                                (timeSpanHoraFinal >= sessao.HorarioInicio && timeSpanHoraFinal <= sessao.HorarioFim) ||
+                                (timeSpanHoraInicio < sessao.HorarioInicio && timeSpanHoraFinal > sessao.HorarioFim))
+                        {
+                            return string.Format("O horário conflitou com sessão já existente: {0} das {1} às {2}", sessao.Data.ToShortDateString(), sessao.HorarioInicio, sessao.HorarioFim);
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                return string.Empty;
+            }
+
+            return string.Empty;
         }//end method
 
         protected override void Dispose(bool disposing)

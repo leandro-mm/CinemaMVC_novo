@@ -18,7 +18,7 @@ namespace CinemaMVC.Models
         public TimeSpan? HorarioInicio { get; set; }
 
         [Display(Name = "Hora Fim")]
-        public TimeSpan HorarioFim { get; set; }
+        public TimeSpan? HorarioFim { get; set; }
 
         [Required]
         [Display(Name = "Valor Ingresso")]        

@@ -27,80 +27,93 @@
     {
         @Html.AntiForgeryToken()
 
-        <div class="form-horizontal">
+<div class="form-horizontal">
 
 
-            <div class="w3-panel w3-warning" style="display:none;width:50%" id="panelError">
-                <p id="spanError"><strong>Erro:</strong></p>
-            </div>
+    <div class="w3-panel w3-warning" style="display:none;width:50%" id="panelError">
+        <p id="spanError"><strong>Erro:</strong></p>
+    </div>
 
 
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <div class="form-group">
-                @Html.LabelFor(model => model.Data, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Data, new { htmlAttributes = new { @class = "form-control", @type = "date", @id = nameof(Model.Data), @onchange = "onChangeData()" } })
-                    @Html.ValidationMessageFor(model => model.Data, "", new { @class = "text-danger" })
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.Data, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Data, new { htmlAttributes = new { @class = "form-control", @type = "date", @id = nameof(Model.Data), @onchange = "onChangeData()" } })
+            @Html.ValidationMessageFor(model => model.Data, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.SalaAudioAnimacaoID, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.SalaAudioAnimacaoID, Model.SalaAudioAnimacaoSelectList, "Selecione...", htmlAttributes: new { @class = "form-control", @id = nameof(Model.SalaAudioAnimacaoID), @onchange = "ddListSalaAudioAnimChange()" })
+            @Html.ValidationMessageFor(model => model.SalaAudioAnimacaoID, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.FilmeID, "FilmeID", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.FilmeID, Model.FilmeSelectList, "Selecione...", htmlAttributes: new { @class = "form-control", @id = nameof(Model.FilmeID), @onchange = "ddListFilmeChange()" })
+            @Html.ValidationMessageFor(model => model.FilmeID, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+   
+    @Html.LabelFor(model => model.HorarioInicio, new { @class = "control-label col-md-2" })
+    <div class="col-md-9">
+
+        <div class="form-group">
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.HorarioInicio, new { htmlAttributes = new { @class = "form-control", @type = "time", @id = nameof(Model.HorarioInicio), @onchange = "onChangeHoraInicio()" } })
+                @Html.ValidationMessageFor(model => model.HorarioInicio, "", new { @class = "text-danger" })
+                <div class="w3-panel w3-info intro" id="sugestaoHorarios" style="width:330px;display:none">
+                    <p id="sugestaoHorariostexto"></p>
                 </div>
             </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.SalaAudioAnimacaoID, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.DropDownListFor(model => model.SalaAudioAnimacaoID, Model.SalaAudioAnimacaoSelectList, "Selecione...", htmlAttributes: new { @class = "form-control", @id = nameof(Model.SalaAudioAnimacaoID), @onchange = "ddListSalaAudioAnimChange()" })
-                    @Html.ValidationMessageFor(model => model.SalaAudioAnimacaoID, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.FilmeID, "FilmeID", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.DropDownListFor(model => model.FilmeID, Model.FilmeSelectList, "Selecione...", htmlAttributes: new { @class = "form-control", @id = nameof(Model.FilmeID), @onchange = "ddListFilmeChange()" })
-                    @Html.ValidationMessageFor(model => model.FilmeID, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.ValorIngresso, new { @class = "control-label col-md-2" })
-                <div class="col-md-5">
-                    <div class="input-group">
-                        <span class="input-group-addon">R$</span>
-                        @Html.TextBoxFor(model => model.ValorIngresso, new { @class = "form-control", @type = "number", @maxlength = 9 })
-                        <span class="input-group-addon">,00</span>
-                    </div>
-                    @Html.ValidationMessageFor(model => model.ValorIngresso)
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.HorarioInicio, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.HorarioInicio, new { htmlAttributes = new { @class = "form-control", @type = "time", @id = nameof(Model.HorarioInicio), @onchange = "onChangeHoraInicio()" } })
-                    @Html.ValidationMessageFor(model => model.HorarioInicio, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.HorarioFim, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.HorarioFim, new { htmlAttributes = new { @class = "form-control", @type = "time", @disabled = "disabled", @id = nameof(Model.HorarioFim) } })
-                    @Html.ValidationMessageFor(model => model.HorarioFim, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-
-            <div class="col-md-offset-2 col-md-10">
+            <div class="col-md-8">
                 <div class="form-group">
-                    @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-warning" })
-                    <input type="submit" value="Salvar" class="btn btn-success" />
+                    @Html.LabelFor(model => model.HorarioFim, new { @class = "control-label col-md-2" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.HorarioFim, new { htmlAttributes = new { @class = "form-control", @type = "time", @disabled = "disabled", @id = nameof(Model.HorarioFim) } })
+                        @Html.ValidationMessageFor(model => model.HorarioFim, "", new { @class = "text-danger" })
+                    </div>                  
                 </div>
+
             </div>
         </div>
+
+    </div>
+
+    
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ValorIngresso, new { @class = "control-label col-md-2" })
+        <div class="col-md-5">
+            <div class="input-group">
+                <span class="input-group-addon">R$</span>
+                @Html.TextBoxFor(model => model.ValorIngresso, new { @class = "form-control", @type = "number", @maxlength = 9 })
+                <span class="input-group-addon">,00</span>
+            </div>
+            @Html.ValidationMessageFor(model => model.ValorIngresso, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="text-center">
+        <div class="form-group">
+            @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-warning" })
+            <input type="submit" value="Salvar" id="btnCreate" class="btn btn-success" />
+        </div>
+    </div>
+
+
+</div>
     }
-}
-else
-{
+    }
+    else
+    {
     <div class="w3-panel w3-warning" style="width:50%">
         <p>
             <strong>Aviso:</strong>
@@ -115,15 +128,15 @@ else
         </p>
     </div>
 
-}
+    }
 
 
 
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
 
-    <script type="text/javascript">
+        <script type="text/javascript">
         $(function () {
             //$('.datepick').datetimepicker({
             //    format: 'L',
@@ -216,7 +229,11 @@ else
                             $("#@nameof(Model.HorarioFim)").val(data.horaFinalValue);
                         }
 
-                        if (typeof data.errorMessage !== 'undefined' && data.errorMessage != "" && data.errorMessage != null) {
+                        if (typeof data.errorMessage !== 'undefined' && data.errorMessage != null && data.errorMessage != "") {
+
+                            //--busca horários sugeridos
+                            $("#sugestaoHorarios").show();
+                            $('#sugestaoHorariostexto').html("New <br /> Text <br /> Text <br /> Text");
 
                             //--desabilita botão de salvar
                             setErrorOnPage(data.errorMessage);
@@ -227,10 +244,13 @@ else
                                 title: 'Aviso',
                                 text: data.errorMessage
                             })
+                        } else {
+                            cleanErrors();
                         }
 
                     } else {
                         $("#@nameof(Model.HorarioFim)").val("");
+
                         cleanErrors();
                         Swal.fire({
                             icon: 'error',
@@ -251,18 +271,20 @@ else
         }//end function
 
         function cleanErrors() {
-            $("#btnSalvar").prop('disabled', false);
+            $("#btnCreate").prop('disabled', false);
             $("#spanError").text('');
             $("#panelError").hide();
+            $("#sugestaoHorariostexto").text('');
+            $("#sugestaoHorarios").hide();
         }
 
         function setErrorOnPage(errorMessage)
         {
-            $("#btnSalvar").prop('disabled', true);
+            $("#btnCreate").prop('disabled', true);
             $("#panelError").show();
             $("#spanError").text('Erro: ' + errorMessage);
         }
 
-    </script>
-}
+        </script>
+    }
 

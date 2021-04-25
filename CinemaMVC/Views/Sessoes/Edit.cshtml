@@ -28,6 +28,11 @@
 
 <div class="form-horizontal">
 
+    <div class="w3-panel w3-warning" style="display:none;width:50%" id="panelError">
+        <p id="spanError"><strong>Erro:</strong></p>
+    </div>
+
+
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     @Html.HiddenFor(model => model.SessaoID)
 
@@ -35,7 +40,7 @@
         @Html.LabelFor(model => model.Data, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
 
-            @Html.EditorFor(model => model.Data, new { htmlAttributes = new { @class = "form-control", @type = "date", @id = nameof(Model.Data), @onchange = "onChangeData()"} })
+            @Html.EditorFor(model => model.Data, new { htmlAttributes = new { @class = "form-control", @type = "date", @id = nameof(Model.Data), @onchange = "onChangeData()" } })
 
             @Html.ValidationMessageFor(model => model.Data, "", new { @class = "text-danger" })
         </div>
@@ -59,50 +64,62 @@
     </div>
 
 
+
+
+
+    @Html.LabelFor(model => model.HorarioInicio, new { @class = "control-label col-md-2" })
+    <div class="col-md-9">
+
+        <div class="form-group">
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.HorarioInicio, new { htmlAttributes = new { @class = "form-control", @type = "time", @id = nameof(Model.HorarioInicio), @onchange = "onChangeHoraInicio()" } })
+                @Html.ValidationMessageFor(model => model.HorarioInicio, "", new { @class = "text-danger" })
+                <div class="w3-panel w3-info intro" id="sugestaoHorarios" style="width:330px;display:none">
+                    <p id="sugestaoHorariostexto"></p>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.HorarioFim, new { @class = "control-label col-md-2" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.HorarioFim, new { htmlAttributes = new { @class = "form-control", @type = "time", @disabled = "disabled", @id = nameof(Model.HorarioFim) } })
+                        @Html.ValidationMessageFor(model => model.HorarioFim, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
     <div class="form-group">
         @Html.LabelFor(model => model.ValorIngresso, new { @class = "control-label col-md-2" })
         <div class="col-md-5">
             <div class="input-group">
                 <span class="input-group-addon">R$</span>
-                @Html.TextBoxFor(model => model.ValorIngresso,new { @class = "form-control",@maxlength = 9, @type = "number" })
+                @Html.TextBoxFor(model => model.ValorIngresso, new { @class = "form-control", @maxlength = 9, @type = "number" })
                 <span class="input-group-addon">,00</span>
             </div>
-            @Html.ValidationMessageFor(model => model.ValorIngresso)
+            @Html.ValidationMessageFor(model => model.ValorIngresso, "", new { @class = "text-danger" })
         </div>
     </div>
 
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.HorarioInicio, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.HorarioInicio, new { htmlAttributes = new { @class = "form-control", @type = "time", @id = nameof(Model.HorarioInicio), @onchange = "onChangeHoraInicio()" } })
-            @Html.ValidationMessageFor(model => model.HorarioInicio, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.HorarioFim, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.HorarioFim, new { htmlAttributes = new { @class = "form-control", @type = "time", @disabled = "disabled", @id = nameof(Model.HorarioFim) } })
-            @Html.ValidationMessageFor(model => model.HorarioFim, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="col-md-offset-2 col-md-10">
+    <div class="text-center">
         <div class="form-group">
             @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-warning" })
-            <input type="submit" value="Salvar" class="btn btn-success" />
+            <input type="submit" value="Salvar" id="btnEditar" class="btn btn-success" />
         </div>
     </div>
+
 </div>
-}
+    }
 
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
 
 
-    <script type="text/javascript">
+        <script type="text/javascript">
         $(function () {
             //$('.datepick').datetimepicker({
             //    format: 'L',
@@ -114,7 +131,7 @@
         function ddListSalaAudioAnimChange()
         {
             try {
-                console.log('SalaAudioAnimacaoID '+ $("#@nameof(Model.SalaAudioAnimacaoID)").val());
+
                 GetDadosHorario();
 
             } catch (e) {
@@ -129,7 +146,7 @@
         function ddListFilmeChange()
         {
             try {
-                console.log('FilmeID '+ $("#@nameof(Model.FilmeID)").val());
+
                 GetDadosHorario();
 
             } catch (e) {
@@ -144,7 +161,7 @@
         function onChangeHoraInicio()
         {
             try {
-                console.log('HorarioInicio '+ $("#@nameof(Model.HorarioInicio)").val());
+
                 GetDadosHorario();
 
             } catch (e) {
@@ -160,7 +177,7 @@
 
         function onChangeData() {
             try {
-                console.log('Data '+ $("#@nameof(Model.Data)").val());
+
                 GetDadosHorario();
 
             } catch (e) {
@@ -202,6 +219,10 @@
                             //--desabilita botão de salvar
                             setErrorOnPage(data.errorMessage);
 
+                            //--busca horários sugeridos
+                            $("#sugestaoHorarios").show();
+                            $('#sugestaoHorariostexto').html("New <br /> Text <br /> Text <br /> Text");
+
                             //--mostra mensagem de erro na tela
                             Swal.fire({
                                 icon: 'error',
@@ -231,18 +252,20 @@
 
         }//end function
 
-        function cleanErrors() {
-            $("#btnSalvar").prop('disabled', false);
+        function cleanErrors() {            
+            $("#btnEditar").prop('disabled', false);
             $("#spanError").text('');
             $("#panelError").hide();
+            $("#sugestaoHorariostexto").text('');
+            $("#sugestaoHorarios").hide();
         }
 
         function setErrorOnPage(errorMessage)
         {
-            $("#btnSalvar").prop('disabled', true);
+            $("#btnEditar").prop('disabled', true);
             $("#panelError").show();
             $("#spanError").text('Erro: ' + errorMessage);
         }
 
-    </script>
-}
+        </script>
+    }
