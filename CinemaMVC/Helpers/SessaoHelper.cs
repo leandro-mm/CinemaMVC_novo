@@ -23,7 +23,7 @@ namespace CinemaMVC.Helpers
             {
                 try
                 {
-                    using (CinemaEntities db = new CinemaEntities())
+                    using (Database1Entities db = new Database1Entities())
                     {
                         SalaAudioAnimacao salaAudioAnimacao =
                             db.SalaAudioAnimacao
@@ -62,7 +62,7 @@ namespace CinemaMVC.Helpers
 
             try
             {
-                using (CinemaEntities db = new CinemaEntities())
+                using (Database1Entities db = new Database1Entities())
                 {
                     var salaAudioAnimacao =
                         db.SalaAudioAnimacao
@@ -106,7 +106,7 @@ namespace CinemaMVC.Helpers
             {
                 if (SalaID.HasValue)
                 {
-                    using (CinemaEntities db = new CinemaEntities())
+                    using (Database1Entities db = new Database1Entities())
                     {
                         var salauAudioAnim = db.SalaAudioAnimacao
                              .Where(s => s.SalaID == SalaID.Value);
@@ -143,7 +143,7 @@ namespace CinemaMVC.Helpers
             {
                 if (FilmeID.HasValue)
                 {
-                    using (CinemaEntities db = new CinemaEntities())
+                    using (Database1Entities db = new Database1Entities())
                     {
                         var sessaoList = db.Sessao.Where(f=>f.FilmeID == FilmeID.Value);
 
@@ -165,7 +165,7 @@ namespace CinemaMVC.Helpers
         {
             try
             {
-                using (CinemaEntities db = new CinemaEntities())
+                using (Database1Entities db = new Database1Entities())
                 {
                     return db.Filme.Count() > 0 && db.Sala.Count() > 0;
                 }

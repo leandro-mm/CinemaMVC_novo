@@ -14,7 +14,7 @@ namespace CinemaMVC.Helpers
 
             if (SalaID.HasValue)
             {
-                using (CinemaEntities db = new CinemaEntities())
+                using (Database1Entities db = new Database1Entities())
                 {
                     var salauAudioAnim = db.SalaAudioAnimacao
                         .Where(s => s.SalaID == SalaID);
@@ -45,7 +45,7 @@ namespace CinemaMVC.Helpers
 
             if (SalaID.HasValue)
             {
-                using (CinemaEntities db = new CinemaEntities())
+                using (Database1Entities db = new Database1Entities())
                 {
                     var salauAudioAnim = db.SalaAudioAnimacao
                         .Where(s => s.SalaID == SalaID);
@@ -76,7 +76,7 @@ namespace CinemaMVC.Helpers
 
             if (obj != null)
             {
-                using (CinemaEntities db = new CinemaEntities())
+                using (Database1Entities db = new Database1Entities())
                 {
                     var salauAudioAnim = db.SalaAudioAnimacao
                         .Where(s => s.SalaID == obj.SalaID && s.TipoAnimacaoID == obj.TipoAnimacaoID && s.TipoAudioID == obj.TipoAudioID)
@@ -101,7 +101,7 @@ namespace CinemaMVC.Helpers
         {
             try
             {
-                using (CinemaEntities db = new CinemaEntities())
+                using (Database1Entities db = new Database1Entities())
                 {
                     return db.TipoAnimacao.Count() > 0 && db.TipoAudio.Count() > 0;
                 }

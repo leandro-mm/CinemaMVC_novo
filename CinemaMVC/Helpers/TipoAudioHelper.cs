@@ -21,7 +21,7 @@ namespace CinemaMVC.Helpers
             {
                 if (TipoAudioID.HasValue)
                 {
-                    using (CinemaEntities db = new CinemaEntities())
+                    using (Database1Entities db = new Database1Entities())
                     {
                         var salauAudioAnimList = db.SalaAudioAnimacao
                              .Where(s => s.TipoAudioID == TipoAudioID.Value);
