@@ -10,7 +10,7 @@ using CinemaMVC.Models;
 
 namespace CinemaMVC.Controllers
 {
-    [Authorize]
+    
     public class TiposAnimacaoController : Controller
     {
         //private CinemaEntities db = new CinemaEntities();

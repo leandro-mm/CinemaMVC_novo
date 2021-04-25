@@ -6,24 +6,31 @@
 
 
 
-    <div class="header">
-        
-        @if (Request.IsAuthenticated)
-        {
-            <ul class="nav navbar-nav navbar-right" style="margin-right:5%;">
-                <li>
-                    @Html.ActionLink("Olá " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @style = "color:white;" })
-                </li>
-                <li><a style="color:white;" href="javascript:document.getElementById('logoutForm').submit()">Sair</a></li>
-            </ul>
-        }
-        else
-        {
-            <div class="nav navbar-nav navbar-right" style="margin-right:5%;margin-top:1%;">
+<div class="header">
+
+    @if (Request.IsAuthenticated)
+    {
+        <ul class="nav navbar-nav navbar-right" style="margin-right:5%;">
+            <li>
+                @Html.ActionLink("Olá " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @style = "color:white;" })
+            </li>
+            <li><a style="color:white;" href="javascript:document.getElementById('logoutForm').submit()">Sair</a></li>
+        </ul>
+    }
+    else
+    {
+        @*<div class="nav navbar-nav navbar-right" style="margin-right:5%;margin-top:1%;">
                 @Html.ActionLink("Registrar", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "btn btn-warning btn-sm" })
-            </div>
-        }
-    </div>
+            </div>*@
+
+        <ul class="nav navbar-nav navbar-right" style="margin-right:5%;">
+            <li>
+                @Html.ActionLink("Olá Cinéfilo!", "Index", "Filmes", routeValues: null, htmlAttributes: new { title = "Manage", @style = "color:white;" })
+            </li>
+            <li><a style="color:white;" href="javascript:document.getElementById('logoutForm').submit()">Sair</a></li>
+        </ul>
+    }
+</div>
 }
 
 

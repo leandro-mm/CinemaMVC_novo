@@ -11,7 +11,7 @@ using CinemaMVC.Models;
 
 namespace CinemaMVC.Controllers
 {
-    [Authorize]
+    
     public class FilmesController : Controller
     {
         //private CinemaEntities db = new CinemaEntities();

@@ -10,7 +10,7 @@ using CinemaMVC.Models;
 
 namespace CinemaMVC.Controllers
 {
-    [Authorize]
+    
     public class ManageController : Controller
     {
         private ApplicationSignInManager _signInManager;
