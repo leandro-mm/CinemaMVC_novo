@@ -242,26 +242,39 @@ else
 
                         if (typeof data.horaFinalValue !== 'undefined' && data.horaFinalValue != "" && data.horaFinalValue != null) {
                             $("#@nameof(Model.HorarioFim)").val(data.horaFinalValue);
-                        }
+                            cleanErrors();
 
-                        if (typeof data.errorMessage !== 'undefined' && data.errorMessage != null && data.errorMessage != "") {
+                            if (typeof data.errorMessage !== 'undefined' && data.errorMessage != null && data.errorMessage != "") {
 
-                            //--busca horários sugeridos
-                            $("#sugestaoHorarios").show();
-                            $('#sugestaoHorariostexto').html("[a ser implementado] <br /> Sugestão de horários : <br /> 09:00hs <br /> 14:00hs <br /> 19:00hs");
+                                //--busca horários sugeridos
+                                $("#sugestaoHorarios").show();
+                                $('#sugestaoHorariostexto').html("[a ser implementado] <br /> Sugestão de horários : <br /> 09:00hs <br /> 14:00hs <br /> 19:00hs");
 
-                            //--desabilita botão de salvar
-                            setErrorOnPage(data.errorMessage);
+                                //--desabilita botão de salvar
+                                setErrorOnPage(data.errorMessage);
 
-                            //--mostra mensagem de erro na tela
+                                //--mostra mensagem de erro na tela
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Aviso',
+                                    text: data.errorMessage
+                                })
+                            } else {
+                                cleanErrors();
+                            }
+
+                        } else {
+
+                            setErrorOnPage('A hora Final não pode ser calculada');
+
                             Swal.fire({
                                 icon: 'error',
                                 title: 'Aviso',
-                                text: data.errorMessage
+                                text: 'A hora Final não pode ser calculada'
                             })
-                        } else {
-                            cleanErrors();
                         }
+
+                       
 
                     } else {
                         $("#@nameof(Model.HorarioFim)").val("");
@@ -300,7 +313,7 @@ else
             $("#btnCreate").prop('disabled', true);
             $("#panelError").show();
             $("#spanError").text('Erro: ' + errorMessage);
-            }
+        }
 
             $("#createSala").click(function createSala(botao) {
 
