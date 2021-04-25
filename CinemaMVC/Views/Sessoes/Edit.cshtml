@@ -28,6 +28,13 @@
 
 <div class="form-horizontal">
 
+    @if (ViewBag.PostError != null)
+    {
+        <div class="w3-panel w3-warning" style="width:50%" id="PostError">
+            <p id="spanError"><strong>@ViewBag.PostError</strong></p>
+        </div>
+    }
+
     <div class="w3-panel w3-warning" style="display:none;width:50%" id="panelError">
         <p id="spanError"><strong>Erro:</strong></p>
     </div>
@@ -76,7 +83,7 @@
 
 
 
-
+    <hr>
     @Html.LabelFor(model => model.HorarioInicio, new { @class = "control-label col-md-2" })
     <div class="col-md-9">
 
@@ -99,10 +106,12 @@
 
             </div>
         </div>
-
+        <hr />
     </div>
 
+
     <div class="form-group">
+
         @Html.LabelFor(model => model.ValorIngresso, new { @class = "control-label col-md-2" })
         <div class="col-md-5">
             <div class="input-group">
@@ -231,7 +240,7 @@
 
                             //--busca horários sugeridos
                             $("#sugestaoHorarios").show();
-                            $('#sugestaoHorariostexto').html("New <br /> Text <br /> Text <br /> Text");
+                            $('#sugestaoHorariostexto').html("[a ser implementado] <br /> Sugestão de horários : <br /> 09:00hs <br /> 14:00hs <br /> 19:00hs");
 
                             //--mostra mensagem de erro na tela
                             Swal.fire({
@@ -262,12 +271,13 @@
 
         }//end function
 
-        function cleanErrors() {            
+        function cleanErrors() {
             $("#btnEditar").prop('disabled', false);
             $("#spanError").text('');
             $("#panelError").hide();
             $("#sugestaoHorariostexto").text('');
             $("#sugestaoHorarios").hide();
+            $("#PostError").hide();
         }
 
         function setErrorOnPage(errorMessage)

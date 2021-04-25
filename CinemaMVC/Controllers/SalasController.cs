@@ -82,6 +82,7 @@ namespace CinemaMVC.Controllers
                     db.Sala.Add(sala);
                     db.SalaAudioAnimacao.Add(salaAudioAnimacao1);
 
+                    //--versão 2.0 criar lista de Audio/Animação
                     //--Vincula à sala as 2 opções Tipo Animacao e Tipo Audio opcionais
                     if (ViewModel.TipoAnimacaoID2.HasValue && ViewModel.TipoAnimacaoID2.Value != 0 &&
                         ViewModel.TipoAudioID2.HasValue && ViewModel.TipoAudioID2.Value != 0)
@@ -246,6 +247,7 @@ namespace CinemaMVC.Controllers
                     salaDb.Nome = ViewModel.Nome;
                     salaDb.QtdAssentos = ViewModel.QtdAssentos;
 
+                    //--versão 2.0 criar lista de Audio/Animação
                     //--Atualiza o relacionamento SalaAudioAnimacao
                     List<SalaAudioAnimacao> itensExcluir = new List<SalaAudioAnimacao>();
                     List<SalaAudioAnimacao> itensAdicionar = new List<SalaAudioAnimacao>();

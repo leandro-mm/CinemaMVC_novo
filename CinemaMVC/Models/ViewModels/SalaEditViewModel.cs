@@ -20,6 +20,7 @@ namespace CinemaMVC.Models
         [Display(Name = "Qtd. Assentos")]
         public int QtdAssentos { get; set; }
 
+        //--versão 2.0 criar lista de Audio/Animação
         public int SalaAudioAnimacaoID1 { get; set; }
         public int SalaAudioAnimacaoID2 { get; set; }
         public int SalaAudioAnimacaoID3 { get; set; }

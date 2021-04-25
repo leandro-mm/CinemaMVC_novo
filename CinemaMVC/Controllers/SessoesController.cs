@@ -57,24 +57,40 @@ namespace CinemaMVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Data,HorarioInicio,HorarioFim,ValorIngresso,SalaAudioAnimacaoID,FilmeID")] SessaoCreateViewModel ViewModel)
         {
-               if (ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 try
                 {
-                    Sessao sessao = new Sessao
+                    if (
+                        HasConflitoHorario(ViewModel.SalaAudioAnimacaoID.Value, 
+                        ViewModel.Data.Value, 
+                        ViewModel.HorarioInicio.Value, 
+                        GetHoraFimSessao(ViewModel.HorarioInicio,ViewModel.FilmeID))
+                    ){
+                        ViewBag.PostError = GetDadosConflitoHorario(ViewModel.SalaAudioAnimacaoID.Value,
+                        ViewModel.Data.Value,
+                        ViewModel.HorarioInicio.Value,
+                       GetHoraFimSessao(ViewModel.HorarioInicio, ViewModel.FilmeID));
+                    }
+                    else
                     {
-                        Data = ViewModel.Data.Value,
-                        HorarioInicio = ViewModel.HorarioInicio.Value,
-                        HorarioFim = GetHoraFimSessao(ViewModel.HorarioInicio, ViewModel.FilmeID),
-                        ValorIngresso = ViewModel.ValorIngresso.Value,
-                        SalaAudioAnimacaoID = ViewModel.SalaAudioAnimacaoID.Value,
-                        FilmeID = ViewModel.FilmeID.Value
-                    };
+                        Sessao sessao = new Sessao
+                        {
+                            Data = ViewModel.Data.Value,
+                            HorarioInicio = ViewModel.HorarioInicio.Value,
+                            HorarioFim = GetHoraFimSessao(ViewModel.HorarioInicio, ViewModel.FilmeID),
+                            ValorIngresso = ViewModel.ValorIngresso.Value,
+                            SalaAudioAnimacaoID = ViewModel.SalaAudioAnimacaoID.Value,
+                            FilmeID = ViewModel.FilmeID.Value
+                        };
 
-                    db.Sessao.Add(sessao);
-                    db.SaveChanges();
+                        db.Sessao.Add(sessao);
+                        db.SaveChanges();
 
-                    return RedirectToAction("Index");
+                        return RedirectToAction("Index");
+                    }
+
+                   
                 }
                 catch (Exception ex)
                 {
@@ -141,22 +157,37 @@ namespace CinemaMVC.Controllers
             {
                 try
                 {
-                    var sessaoDb = db.Sessao.Where(s => s.SessaoID == ViewModel.SessaoID).FirstOrDefault();
 
-                    if (sessaoDb != null)
+                    if (
+                        HasConflitoHorario(ViewModel.SalaAudioAnimacaoID.Value,
+                        ViewModel.Data.Value,
+                        ViewModel.HorarioInicio.Value,
+                        GetHoraFimSessao(ViewModel.HorarioInicio, ViewModel.FilmeID))
+                    )
                     {
-                        sessaoDb.Data = ViewModel.Data.Value;
-                        sessaoDb.HorarioInicio = ViewModel.HorarioInicio.Value;
-                        sessaoDb.HorarioFim = ViewModel.HorarioInicio.Value;
-                        sessaoDb.ValorIngresso = ViewModel.ValorIngresso.Value;
-                        sessaoDb.SalaAudioAnimacaoID = ViewModel.SalaAudioAnimacaoID.Value;
-                        sessaoDb.FilmeID = ViewModel.FilmeID.Value;
-
-                        db.Entry(sessaoDb).State = EntityState.Modified;
-                        db.SaveChanges();
-                        return RedirectToAction("Index");
+                        ViewBag.PostError = GetDadosConflitoHorario(ViewModel.SalaAudioAnimacaoID.Value,
+                        ViewModel.Data.Value,
+                        ViewModel.HorarioInicio.Value,
+                       GetHoraFimSessao(ViewModel.HorarioInicio, ViewModel.FilmeID));
                     }
-                    
+                    else
+                    {
+                        var sessaoDb = db.Sessao.Where(s => s.SessaoID == ViewModel.SessaoID).FirstOrDefault();
+
+                        if (sessaoDb != null)
+                        {
+                            sessaoDb.Data = ViewModel.Data.Value;
+                            sessaoDb.HorarioInicio = ViewModel.HorarioInicio.Value;
+                            sessaoDb.HorarioFim = ViewModel.HorarioInicio.Value;
+                            sessaoDb.ValorIngresso = ViewModel.ValorIngresso.Value;
+                            sessaoDb.SalaAudioAnimacaoID = ViewModel.SalaAudioAnimacaoID.Value;
+                            sessaoDb.FilmeID = ViewModel.FilmeID.Value;
+
+                            db.Entry(sessaoDb).State = EntityState.Modified;
+                            db.SaveChanges();
+                            return RedirectToAction("Index");
+                        }
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -283,7 +314,7 @@ namespace CinemaMVC.Controllers
                             DateTime dateValue;
                             if (DateTime.TryParse(DataSessao, out dateValue))
                             {
-                                if(VerificarConflitoHorario(SalaAudioAnimacaoID.Value, dateValue, timeSpanHoraInicio, timeSpanHoraFinal))
+                                if(HasConflitoHorario(SalaAudioAnimacaoID.Value, dateValue, timeSpanHoraInicio, timeSpanHoraFinal))
                                 {
                                     errorMessage = GetDadosConflitoHorario(SalaAudioAnimacaoID.Value, dateValue, timeSpanHoraInicio, timeSpanHoraFinal);
                                 }                                
@@ -312,7 +343,7 @@ namespace CinemaMVC.Controllers
             return Json(new { horaFinalValue, horariosDisponiveis, errorMessage }, JsonRequestBehavior.AllowGet);
         }        
 
-        private bool VerificarConflitoHorario(int SalaAudioAnimacaoID, DateTime dataSessao, TimeSpan timeSpanHoraInicio, TimeSpan timeSpanHoraFinal)
+        private bool HasConflitoHorario(int SalaAudioAnimacaoID, DateTime dataSessao, TimeSpan timeSpanHoraInicio, TimeSpan timeSpanHoraFinal)
         {
             var result = false;
 

@@ -18,6 +18,7 @@ namespace CinemaMVC.Models
         [Display(Name = "Qtd. Assentos")]
         public int QtdAssentos { get; set; }
 
+        //--versão 2.0 criar lista de Audio/Animação
         [Required]
         [Display(Name = "Tipo Áudio")]
         public int TipoAudioID1 { get; set; }
