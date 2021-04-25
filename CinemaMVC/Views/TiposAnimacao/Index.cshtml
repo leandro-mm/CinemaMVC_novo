@@ -25,35 +25,44 @@
         </div>
     </div>
 </div>
+@if (Model != null && Model.Count() > 0)
+{
+    <table class="table table-sm table-striped">
+        <tr>
+            <th>
+                Descrição
+            </th>
+            <th data-type="html"></th>
+        </tr>
 
-<table class="table table-striped table-sm">
-    <tr>
-        <th>
-            Descrição
-        </th>
-        <th data-type="html"></th>
-    </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Descricao)
+                </td>
+                <td>
+                    @Html.ActionLink(" ", "Edit", new { id = item.TipoAnimacaoID }, new { @class = "btn btn-primary btn-circle fa fa-pencil-square-o", @data_toggle = "tooltip", @data_placement = "top", @title = "Alterar" })
+                    @Html.ActionLink(" ", "Details", new { id = item.TipoAnimacaoID }, new { @class = "btn btn-primary btn-circle fa fa-eye", @data_toggle = "tooltip", @data_placement = "top", @title = "Visualizar" })
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Descricao)
-        </td>
-        <td>
-            @Html.ActionLink(" ", "Edit", new { id = item.TipoAnimacaoID }, new { @class = "btn btn-primary btn-circle fa fa-pencil-square-o", @data_toggle = "tooltip", @data_placement = "top", @title = "Alterar" })
-            @Html.ActionLink(" ", "Details", new { id = item.TipoAnimacaoID }, new { @class = "btn btn-primary btn-circle fa fa-eye", @data_toggle = "tooltip", @data_placement = "top", @title = "Visualizar" })
+                    @if (item.SalaAudioAnimacao == null || item.SalaAudioAnimacao.Count() == 0)
+                    {
+                        @Html.ActionLink(" ", "Delete", new { id = item.TipoAnimacaoID }, new { @class = "btn btn-danger btn-circle fa fa-trash-o", @data_toggle = "tooltip", @data_placement = "top", @title = "Deletar" })
+                    }
+                    else
+                    {
+                        <button class="btn btn-danger btn-circle fa fa-trash-o" disabled="disabled"></button>
+                    }
 
-            @if (item.SalaAudioAnimacao == null || item.SalaAudioAnimacao.Count() == 0)
-            {
-                @Html.ActionLink(" ", "Delete", new { id = item.TipoAnimacaoID }, new { @class = "btn btn-danger btn-circle fa fa-trash-o", @data_toggle = "tooltip", @data_placement = "top", @title = "Deletar" })
-            }
-            else
-            {
-                <button class="btn btn-danger btn-circle fa fa-trash-o" disabled="disabled"></button>
-            }
+                </td>
+            </tr>
+        }
 
-        </td>
-    </tr>
+    </table>
 }
-
-</table>
+else
+{
+    <div class="w3-container w3-pale-blue w3-leftbar w3-border-blue">
+        <p style="text-align:left"><b>Nenhum Tipo Animação Cadastrada </b></p>
+    </div>
+}

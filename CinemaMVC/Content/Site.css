@@ -135,3 +135,11 @@ textarea {
 .w3-border-blue, .w3-hover-border-blue:hover {
     border-color: #2196F3 !important;
 }
+
+.w3-border {
+    border: 1px solid #ccc !important;
+}
+
+.w3-round-xlarge {
+    border-radius: 16px;
+}

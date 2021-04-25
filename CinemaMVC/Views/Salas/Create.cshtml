@@ -18,120 +18,137 @@
                 <strong>@ViewBag.Title</strong>
             </li>
         </ol>
-    </div>   
+    </div>
 </div>
-
-@using (Html.BeginForm()) 
+@if (CinemaMVC.Helpers.SalaHelper.ValidarCreateSala())
 {
-    @Html.AntiForgeryToken()
-    
-<div class="form-horizontal">
+    using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
 
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control", @maxlength = "50" } })
-            @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
-        </div>
-    </div>
+        <div class="form-horizontal">
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.QtdAssentos, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.QtdAssentos, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = "1" } })
-            @Html.ValidationMessageFor(model => model.QtdAssentos, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="col-md-offset-1 col-md-11">
-        <div class="panel-group">
-            <div class="panel-body">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <i class="fa fa-camera-retro"> </i> Áudio/Animação Opção 1 <span class="badge badge-warning">(Obrigatório)</span>
-                    </div>
-                    <div class="panel-body">
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.TipoAudioID1, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.DropDownListFor(model => model.TipoAudioID1, Model.TipoAudioID1selectList, "Selecione...", htmlAttributes: new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.TipoAudioID1, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.TipoAnimacaoID1, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.DropDownListFor(model => model.TipoAnimacaoID1, Model.TipoAnimacaoID1selectList, "Selecione...", htmlAttributes: new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.TipoAnimacaoID1, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                    </div>
-                    </div>
-
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <i class="fa fa-camera-retro"> </i> Áudio/Animação Opção 2
-                    </div>
-                    <div class="panel-body">
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.TipoAudioID2, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.DropDownListFor(model => model.TipoAudioID2, Model.TipoAudioID2selectList, "Selecione...", htmlAttributes: new { @class = "form-control" })
-
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.TipoAnimacaoID2, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.DropDownListFor(model => model.TipoAnimacaoID2, Model.TipoAnimacaoID2selectList, "Selecione...", htmlAttributes: new { @class = "form-control" })
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <i class="fa fa-camera-retro"> </i> Áudio/Animação Opção 3
-                    </div>
-                    <div class="panel-body">
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.TipoAudioID3, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.DropDownListFor(model => model.TipoAudioID3, Model.TipoAudioID3selectList, "Selecione...", htmlAttributes: new { @class = "form-control" })
-
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.TipoAnimacaoID3, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.DropDownListFor(model => model.TipoAnimacaoID3, Model.TipoAnimacaoID3selectList, "Selecione...", htmlAttributes: new { @class = "form-control" })
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="text-center">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="form-group">
-                @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-warning" })
-                <input type="submit" value="Salvar" class="btn btn-success" />
+                @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control", @maxlength = "50" } })
+                    @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.QtdAssentos, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.QtdAssentos, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = "1" } })
+                    @Html.ValidationMessageFor(model => model.QtdAssentos, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="col-md-offset-1 col-md-11">
+                <div class="panel-group">
+                    <div class="panel-body">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <i class="fa fa-camera-retro"> </i> Áudio/Animação Opção 1 <span class="badge badge-warning">(Obrigatório)</span>
+                            </div>
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.TipoAudioID1, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.DropDownListFor(model => model.TipoAudioID1, Model.TipoAudioID1selectList, "Selecione...", htmlAttributes: new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.TipoAudioID1, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.TipoAnimacaoID1, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.DropDownListFor(model => model.TipoAnimacaoID1, Model.TipoAnimacaoID1selectList, "Selecione...", htmlAttributes: new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.TipoAnimacaoID1, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <i class="fa fa-camera-retro"> </i> Áudio/Animação Opção 2
+                            </div>
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.TipoAudioID2, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.DropDownListFor(model => model.TipoAudioID2, Model.TipoAudioID2selectList, "Selecione...", htmlAttributes: new { @class = "form-control" })
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.TipoAnimacaoID2, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.DropDownListFor(model => model.TipoAnimacaoID2, Model.TipoAnimacaoID2selectList, "Selecione...", htmlAttributes: new { @class = "form-control" })
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <i class="fa fa-camera-retro"> </i> Áudio/Animação Opção 3
+                            </div>
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.TipoAudioID3, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.DropDownListFor(model => model.TipoAudioID3, Model.TipoAudioID3selectList, "Selecione...", htmlAttributes: new { @class = "form-control" })
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.TipoAnimacaoID3, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.DropDownListFor(model => model.TipoAnimacaoID3, Model.TipoAnimacaoID3selectList, "Selecione...", htmlAttributes: new { @class = "form-control" })
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <div class="form-group">
+                    @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-warning" })
+                    <input type="submit" value="Salvar" class="btn btn-success" />
+                </div>
             </div>
         </div>
-    </div>
     }
 
-    <div>
-        @Html.ActionLink("Back to List", "Index")
+}
+else
+{
+    <div class="w3-panel w3-warning" style="width:50%">
+        <p>
+            <strong>Aviso:</strong>
+            É necessário criar um  Tipode Áudio e um Tipo de Animação.
+            <br /><br />
+            Para adicionar um tipo de áudio
+            <code class="w3-codespan"><a href="@Url.Action("Create","TiposAudio")">clique aqui </a> </code>
+            <br />
+            <br />
+            para adicionar um tipo de animação
+            <code class="w3-codespan"><a href="@Url.Action("Create","TiposAnimacao")">clique aqui </a></code>
+        </p>
     </div>
 
-    @section Scripts {
-        @Scripts.Render("~/bundles/jqueryval")
-    }
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

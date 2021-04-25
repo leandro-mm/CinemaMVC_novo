@@ -28,20 +28,25 @@
     <div class="form-group">
         @Html.Label("Descricao", "Descrição", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.Descricao, new { htmlAttributes = new { @class = "form-control", @maxlength = "50" } })
+            @Html.EditorFor(model => model.Descricao, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
         </div>
     </div>
 
     <div class="form-group">
         @Html.Label("Salas", "Salas Vinculadas", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @foreach (var item in CinemaMVC.Helpers.TipoAudioHelper.GetSalasByTipoAudioID(Model.TipoAudioID))
-            {
-                <span>@item</span>
-            }
+            <div class="w3-container w3-border w3-round-xlarge">
+                @foreach (var item in CinemaMVC.Helpers.TipoAudioHelper.GetSalasByTipoAudioID(Model.TipoAudioID))
+                {
+                    <a href="@Url.Action("Details","Salas",new {id=item.SalaID})">@item.Nome</a>
+
+                    <br />
+                }
+                <p style="color:white">I have rounded borders.</p>
+            </div>
+            </div>
         </div>
     </div>
-
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()

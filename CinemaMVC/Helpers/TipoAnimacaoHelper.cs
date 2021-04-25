@@ -13,9 +13,9 @@ namespace CinemaMVC.Helpers
         /// </summary>
         /// <param name="TipoAnimacaoID"></param>       
         /// <returns>lista contendo sessões vinculadas a sala</returns>
-        public static List<string> GetSalasByTipoAnimacaoID(int? TipoAnimacaoID)
+        public static List<Sala> GetSalasByTipoAnimacaoID(int? TipoAnimacaoID)
         {
-            List<string> result = new List<string>();
+            List<Sala> result = new List<Sala>();
 
             try
             {
@@ -23,18 +23,16 @@ namespace CinemaMVC.Helpers
                 {
                     using (CinemaEntities db = new CinemaEntities())
                     {
-                        var salauAudioAnim = db.SalaAudioAnimacao
+                        var salauAudioAnimList = db.SalaAudioAnimacao
                              .Where(s => s.TipoAnimacaoID == TipoAnimacaoID.Value);
 
-                        if (salauAudioAnim != null && salauAudioAnim.Any())
-                        {
-                            foreach (var item in salauAudioAnim)
+                        if (salauAudioAnimList != null && salauAudioAnimList.Any())
+                        {   
+                            foreach (var item in salauAudioAnimList)
                             {
-                                result.Add(item.Sala.Nome);
-
+                                result.Add(item.Sala);
                             }
                         }
-
                     }
                 }
                 

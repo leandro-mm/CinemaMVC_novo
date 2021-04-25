@@ -29,7 +29,7 @@
 
 
 <div class="form-horizontal">
-    <div class="col-md-offset-2 row">
+   
 
         <div class="form-group">
             @Html.Label("Data", "Data Sessão", htmlAttributes: new { @class = "control-label col-md-2" })
@@ -55,49 +55,58 @@
         <div class="form-group">
             @Html.Label("filmes", "Filme", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @if (Model.Filme != null)
-                {
-                    <a href="@Url.Action("Details","Filmes",new {id=Model.Filme.FilmeID})">@Model.Filme.Titulo</a>
-                }
+                <div class="w3-container w3-border w3-round-xlarge">
+                    @if (Model.Filme != null)
+                    {
+                        <a href="@Url.Action("Details","Filmes",new {id=Model.Filme.FilmeID})">@Model.Filme.Titulo</a>
+                    }
+                    <p style="color:white">I have rounded borders.</p>
+                </div>
 
+                </div>
             </div>
-        </div>
 
         <div class="form-group">
             @Html.Label("sala", "Sala", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @if (Model.SalaAudioAnimacao != null)
-                {
-                    <a href="@Url.Action("Details","Salas",new {id=Model.SalaAudioAnimacao.SalaID})">@Model.SalaAudioAnimacao.Sala.Nome</a>
-                }
-
+                <div class="w3-container w3-border w3-round-xlarge">
+                    @if (Model.SalaAudioAnimacao != null)
+                    {
+                        <a href="@Url.Action("Details","Salas",new {id=Model.SalaAudioAnimacao.SalaID})">@Model.SalaAudioAnimacao.Sala.Nome</a>
+                    }
+                    <p style="color:white">I have rounded borders.</p>
+                </div>
+                </div>
             </div>
-        </div>
 
         <div class="form-group">
             @Html.Label("Audio", "Áudio", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @if (Model.SalaAudioAnimacao != null)
-                {
-                    <a href="@Url.Action("Details","TiposAudio",new {id=Model.SalaAudioAnimacao.TipoAudioID})">@Model.SalaAudioAnimacao.TipoAudio.Descricao</a>
-                }
-
+                <div class="w3-container w3-border w3-round-xlarge">
+                    @if (Model.SalaAudioAnimacao != null)
+                    {
+                        <a href="@Url.Action("Details","TiposAudio",new {id=Model.SalaAudioAnimacao.TipoAudioID})">@Model.SalaAudioAnimacao.TipoAudio.Descricao</a>
+                    }
+                    <p style="color:white">I have rounded borders.</p>
+                </div>
+                </div>
             </div>
-        </div>
 
         <div class="form-group">
             @Html.Label("Animacao", "Animação", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @if (Model.SalaAudioAnimacao != null)
-                {
-                    <a href="@Url.Action("Details","TiposAnimacao",new {id=Model.SalaAudioAnimacao.TipoAnimacaoID})">@Model.SalaAudioAnimacao.TipoAnimacao.Descricao</a>
-                }
-
+                <div class="w3-container w3-border w3-round-xlarge">
+                    @if (Model.SalaAudioAnimacao != null)
+                    {
+                        <a href="@Url.Action("Details","TiposAnimacao",new {id=Model.SalaAudioAnimacao.TipoAnimacaoID})">@Model.SalaAudioAnimacao.TipoAnimacao.Descricao</a>
+                    }
+                    <p style="color:white">I have rounded borders.</p>
+                </div>
+                </div>
             </div>
-        </div>
 
 
-    </div>
+   
 
 
     @using (Html.BeginForm())

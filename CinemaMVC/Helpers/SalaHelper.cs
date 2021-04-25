@@ -96,8 +96,22 @@ namespace CinemaMVC.Helpers
 
             return result;
         }//end method
-        
-       
+
+        public static bool ValidarCreateSala()
+        {
+            try
+            {
+                using (CinemaEntities db = new CinemaEntities())
+                {
+                    return db.TipoAnimacao.Count() > 0 && db.TipoAudio.Count() > 0;
+                }
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+        }
 
     }//end class
 

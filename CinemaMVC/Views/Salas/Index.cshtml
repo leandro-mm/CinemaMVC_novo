@@ -25,15 +25,16 @@
         </div>
     </div>
 </div>
-    
 
+@if (Model != null && Model.Count() > 0)
+{
     <table class="table table-striped table-sm">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Nome)
             </th>
             <th>
-               Qtd Assentos
+                Qtd Assentos
             </th>
             <th>
                 Sessões
@@ -55,7 +56,7 @@
                 <td>
                     @if (possuiSessaoVinculada)
                     {
-                        foreach (var item2 in CinemaMVC.Helpers.SessaoHelper.GetSessoesBySalaID(item.SalaID).OrderBy(s=>s.Data).ThenBy(s=>s.HorarioInicio))
+                        foreach (var item2 in CinemaMVC.Helpers.SessaoHelper.GetSessoesBySalaID(item.SalaID).OrderBy(s => s.Data).ThenBy(s => s.HorarioInicio))
                         {
                             <a href="@Url.Action("Details","Sessoes",new {id=item2.SessaoID})">@item2.Data.ToShortDateString()</a>
                             <span>Horário @item2.HorarioInicio às @item2.HorarioFim</span>
@@ -82,3 +83,11 @@
         }
 
     </table>
+}
+else
+{
+    <div class="w3-container w3-pale-blue w3-leftbar w3-border-blue">
+        <p style="text-align:left"><b>Nenhuma Sala Cadastrada </b></p>
+    </div>
+}
+

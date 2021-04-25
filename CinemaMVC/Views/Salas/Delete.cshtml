@@ -44,38 +44,45 @@
     <div class="form-group">
         @Html.Label("audioAnimacao", "Áudio", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @foreach (var item in CinemaMVC.Helpers.SalaHelper.GetTipoAudioBySalaID(Model.SalaID))
-            {
-                <a href="@Url.Action("Details","TiposAudio",new {id=item.TipoAudioID})">@item.Descricao</a>
+            <div class="w3-container w3-border w3-round-xlarge">
+                @foreach (var item in CinemaMVC.Helpers.SalaHelper.GetTipoAudioBySalaID(Model.SalaID))
+                {
+                    <a href="@Url.Action("Details","TiposAudio",new {id=item.TipoAudioID})">@item.Descricao</a>
 
-                <br />
-            }
+                    <br />
+                }
+                <p style="color:white">I have rounded borders.</p>
+            </div>
+            </div>
         </div>
-    </div>
 
     <div class="form-group">
         @Html.Label("Animacao", "Animação", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @foreach (var item in CinemaMVC.Helpers.SalaHelper.GetTipoAnimacaoBySalaID(Model.SalaID))
-            {
-                <a href="@Url.Action("Details","TiposAnimacao",new {id=item.TipoAnimacaoID})">@item.Descricao</a>
+            <div class="w3-container w3-border w3-round-xlarge">
+                @foreach (var item in CinemaMVC.Helpers.SalaHelper.GetTipoAnimacaoBySalaID(Model.SalaID))
+                {
+                    <a href="@Url.Action("Details","TiposAnimacao",new {id=item.TipoAnimacaoID})">@item.Descricao</a>
 
-                <br />
-            }
+                    <br />
+                }
+                <p style="color:white">I have rounded borders.</p>
+            </div>
+            </div>
         </div>
-    </div>
 
     <div class="form-group">
         @Html.Label("sessoes", "Sessões Vinculadas", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            <fieldset>
+            <div class="w3-container w3-border w3-round-xlarge">
                 @foreach (var item in CinemaMVC.Helpers.SessaoHelper.GetSessoesBySalaID(Model.SalaID).OrderBy(s => s.Data).ThenBy(s => s.HorarioInicio))
                 {
-                    <a href="@Url.Action("Details","Sessoes",new {id=item.SessaoID})">@item.Data</a>
+                    <a href="@Url.Action("Details","Sessoes",new {id=item.SessaoID})">@item.Data.ToShortDateString()</a>
                     <span>das @item.HorarioInicio às @item.HorarioFim</span>
                     <br />
                 }
-            </fieldset>
+                <p style="color:white">I have rounded borders.</p>
+            </div>
         </div>
     </div>
 
